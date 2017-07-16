@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/sergiga/recipes-node-react/issues"
   },
-  "homepage": "https://github.com/sergiga/recipes-node-react#readme"
+  "homepage": "https://github.com/sergiga/recipes-node-react#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }

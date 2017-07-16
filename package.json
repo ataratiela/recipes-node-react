@@ -22,6 +22,10 @@
   },
   "homepage": "https://github.com/sergiga/recipes-node-react#readme",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "morgan": "^1.8.2",
+    "serve-favicon": "^2.4.3"
   }
 }

@@ -2,14 +2,7 @@
 
 var mysql = require('mysql');
 
-var conf = require('./db-conf');
-var dbOption = {
-	host: conf.mysql.host,
-	port: conf.mysql.port,
-	user: conf.mysql.user,
-	password: conf.mysql.pass,
-	database: conf.mysql.db
-};
+var dbOption = require('./db-conf').mysql;
 
 var myConn = mysql.createConnection(dbOption)
 
@@ -21,7 +14,7 @@ var UserConexion = () => {};
 
 UserConexion.getAll = (cb) => {
 	myConn.query('SELECT * FROM users', cb);
-}
+};
 
 UserConexion.getOne = (UserID, cb) => {
 	myConn.query('SELECT * FROM users WHERE UserID = ?', UserID, cb);

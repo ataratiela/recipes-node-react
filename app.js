@@ -16,10 +16,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+app.use('/users', users);
+
 app.get('*', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, 'client/build/index.html'));
 });
-
-app.use('/users', users);
 
 module.exports = app;

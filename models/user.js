@@ -6,27 +6,35 @@ var user = {
 			if (err) throw err;
 			done(null, res);
 		});
+	},
+
+	getOne: (userID, done) => {
+		dbPool.query('SELECT * FROM users WHERE UserID = ?', (err, res, fields) => {
+			if (err) throw err;
+			done(null, res);
+		});
+	},
+
+	insert: (user, done) => {
+		dbPool.query('INSERT INTO users SET ?', (err, res, fields) => {
+			if (err) throw err;
+			done(null, res);
+		});
+	},
+
+	update: (user, userID, done) => {
+		dbPool.query('UPDATE users SET ? WHERE UserID = ?', (err, res, fields) => {
+			if (err) throw err;
+			done(null, res);
+		});
+	},
+
+	delete: (userID, done) => {
+		dbPool.query('DELETE FROM users WHERE UserID = ?', (err, res, fields) => {
+			if (err) throw err;
+			done(null, res);
+		});
 	}
 };
-
-/*User.getAll = (cb) => {
-	myConn.query('SELECT * FROM users', cb);
-};
-
-User.getOne = (UserID, cb) => {
-	myConn.query('SELECT * FROM users WHERE UserID = ?', UserID, cb);
-};
-
-User.insert = (data, cb) => {
-	myConn.query('INSERT INTO users SET ?', data, cb);
-};
-
-User.update = (data, cb) => {
-	myConn.query('UPDATE users SET ? WHERE UserID = ?', [data, data.UserID], cb);
-};
-
-User.delete = (UserID, cb) => {
-	myConn.query('DELETE FROM users WHERE UserID = ?', UserID, cb)
-};*/
 
 module.exports = user;

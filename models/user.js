@@ -1,36 +1,36 @@
 var dbPool = require('../db/db-connector');
 
 var user = {
-	getAll: (done) => {
+	findAll: (done) => {
 		dbPool.query('SELECT * FROM users', (err, res, fields) => {
 			if (err) throw err;
 			done(null, res);
 		});
 	},
 
-	getOne: (userID, done) => {
-		dbPool.query('SELECT * FROM users WHERE UserID = ?', (err, res, fields) => {
+	findByID: (userID, done) => {
+		dbPool.query('SELECT * FROM users WHERE UserID = ?', [userID], (err, res, fields) => {
 			if (err) throw err;
 			done(null, res);
 		});
 	},
 
-	insert: (user, done) => {
-		dbPool.query('INSERT INTO users SET ?', (err, res, fields) => {
+	save: (user, done) => {
+		dbPool.query('INSERT INTO users SET ?', [user], (err, res, fields) => {
 			if (err) throw err;
 			done(null, res);
 		});
 	},
 
-	update: (user, userID, done) => {
-		dbPool.query('UPDATE users SET ? WHERE UserID = ?', (err, res, fields) => {
+	update: (user, done) => {
+		dbPool.query('UPDATE users SET ? WHERE UserID = ?', [user, user.userID], (err, res, fields) => {
 			if (err) throw err;
 			done(null, res);
 		});
 	},
 
 	delete: (userID, done) => {
-		dbPool.query('DELETE FROM users WHERE UserID = ?', (err, res, fields) => {
+		dbPool.query('DELETE FROM users WHERE UserID = ?', [userID], (err, res, fields) => {
 			if (err) throw err;
 			done(null, res);
 		});

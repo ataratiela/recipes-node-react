@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
 const users = require('./controllers/users');
+const recipes = require('./controllers/recipes');
 
 // Uncoment once we have a favicon
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/users', users);
+app.use('/recipes', recipes);
 
 app.get('*', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, 'client/build/index.html'));

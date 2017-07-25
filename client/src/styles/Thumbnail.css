@@ -1,0 +1,21 @@
+.Thumbnail {
+  margin: 12px;
+  width: 33.33%;
+  max-width: 250px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, .1);
+}
+
+.Thumbnail img {
+  height: 200px;
+  width: 100%;
+}
+
+.Caption {
+  padding: 20px;
+}
+
+.action-holder {
+  display: flex;
+  flex-direction: row-reverse;
+}

@@ -1,6 +1,11 @@
+.Thumbnail, .Caption {
+  display: flex;
+  flex-direction: column;
+}
+
 .Thumbnail {
   margin: 12px;
-  width: 33.33%;
+  width: 25%;
   max-width: 250px;
   border-radius: 2px;
   border: 1px solid rgba(0, 0, 0, .1);
@@ -9,6 +14,11 @@
 .Thumbnail img {
   height: 200px;
   width: 100%;
+  object-fit: cover;
+}
+
+.Caption, .Caption p {
+  flex: 1 1 auto;
 }
 
 .Caption {
@@ -18,4 +28,8 @@
 .action-holder {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.Thumbnail h3, .img, .action-holder {
+  flex: 0 0 auto;
 }

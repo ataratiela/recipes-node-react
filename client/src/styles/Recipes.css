@@ -1,0 +1,7 @@
+.Recipes {
+  max-width: 1104px;
+  margin: auto;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: flex-start;
+}

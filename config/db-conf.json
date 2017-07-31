@@ -5,6 +5,7 @@
 		"port": 3306,
 		"user": "root",
 		"password": "1234",
-		"database": "recipes"
+		"database": "recipes",
+		"charset": "utf8_unicode_ci"
 	}
 }

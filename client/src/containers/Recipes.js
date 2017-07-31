@@ -29,7 +29,7 @@ class Recipes extends Component {
     const { recipes } = this.state;
 
     const recipeList = recipes.map((r) => {
-      return <Thumbnail key={ r.recipeID } image={ r.image } title={ r.name } description={ r.description } />
+      return <Thumbnail key={ r.recipeID } id={ r.recipeID } image={ r.image } title={ r.name } description={ r.description } />
     })
 
     return (

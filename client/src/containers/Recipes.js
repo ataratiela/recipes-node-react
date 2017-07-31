@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import Header from '../views/Header';
 import Thumbnail from '../views/Thumbnail';
 import axios from 'axios';
@@ -32,9 +34,11 @@ class Recipes extends Component {
       return <Thumbnail key={ r.recipeID } id={ r.recipeID } image={ r.image } title={ r.name } description={ r.description } />
     })
 
+    const headerLink = <Link to='/recipes/new'>new recipe ></Link>;
+
     return (
       <div className='content full-width'>
-        <Header title='Recipes' />
+        <Header title='Recipes' link={ headerLink } />
         <div className="Recipes">{ recipeList }</div>
       </div>
     );

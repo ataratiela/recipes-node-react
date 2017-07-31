@@ -16,6 +16,20 @@ a {
   text-decoration: none;
 }
 
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}
+
+.content {
+  padding-top: 42px;
+}
+
+.full-width {
+  width: 100%;
+  margin: auto;
+  max-width: 1104px;
+}
+
 .btn {
   display: inline-block;
   height: 36px;
@@ -26,7 +40,7 @@ a {
   text-transform: uppercase;
 }
 
-.btn-fill {
+.btn.btn-fill {
   color: #FFF;
   background-color: #FF6E40;
 }
@@ -35,8 +49,18 @@ a {
   background-color: #FF3D00;
 }
 
-.full-width {
-  width: 100%;
-  margin: auto;
-  max-width: 1104px;
+.btn-nav {
+  height: 40px;
+  line-height: 40px;
+  border-radius: 0px;
+  text-transform: capitalize;
+  border-bottom: 2px solid #FFFFFF;
+}
+
+.btn-nav:hover {
+  border-bottom: 2px solid #FF3D00;
+}
+
+.btn-nav.selected {
+  border-bottom: 2px solid #FF3D00;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 
 function Navbar(props) {
@@ -7,7 +7,11 @@ function Navbar(props) {
     <div className='Navbar'>
       <div className='nav-content full-width'>
         <div className='nav-primary'>
-          <Link className='btn btn-nav' to='/'>Home</Link>
+          <NavLink
+            to="/"
+            className='btn btn-nav'
+            activeClassName="selected"
+          >Home</NavLink>
         </div>
         <div className='nav-secondary'>
           <Link className='btn btn-fill' to='/'>Log Out</Link>

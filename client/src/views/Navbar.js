@@ -8,6 +8,7 @@ function Navbar(props) {
       <div className='nav-content full-width'>
         <div className='nav-primary'>
           <NavLink
+            exact
             to="/"
             className='btn btn-nav'
             activeClassName="selected"

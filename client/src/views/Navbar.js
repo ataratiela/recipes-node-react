@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 
 function Navbar(props) {
-  const { location } = props
-
-  console.log(props);
-
   return (
     <div className='Navbar'>
       <div className='nav-content full-width'>

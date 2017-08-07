@@ -4,8 +4,9 @@ import {
   Route
 } from 'react-router-dom';
 import Navbar from '../views/Navbar';
-import Recipes from './Recipes';
 import Recipe from './Recipe';
+import Recipes from './Recipes';
+import NewRecipe from './NewRecipe';
 
 class App extends Component {
   render() {
@@ -15,7 +16,8 @@ class App extends Component {
           <Navbar />
 
           <Route exact path="/" component={ Recipes }/>
-          <Route path="/recipe/:id" component={ Recipe }/>
+          <Route exact path="/recipe/:id" component={ Recipe }/>
+          <Route exact path="/recipes/new" component={ NewRecipe }/>
         </div>
       </Router>
     );

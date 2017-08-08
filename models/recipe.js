@@ -1,24 +1,15 @@
-var dbPool = require('../db/db-connector');
+const dbPool = require('../db/db-connector');
 
-const recipe = ({ RecipeID, Name, Description, Image, 
-    Dificulty, Diners, PrepTime, UserID, CategoryID }) => {
+const recipe = (recipe) => {
 
-  let state = {
-    recipeID: RecipeID,
-    name: Name,
-    description: Description,
-    image: Image,
-    dificulty: Dificulty,
-    diners: Diners,
-    PrepTime: PrepTime,
-    userID: UserID,
-    categoryID: CategoryID
-  }
+  let state = recipe;
 
   return {
     state
   } 
 }
+
+exports.new = recipe; 
 
 exports.findAll = (done) => {
   dbPool.query('SELECT * FROM Recipes', (err, res, fields) => {
@@ -28,3 +19,11 @@ exports.findAll = (done) => {
     done(null, recipes);
   });
 };
+
+exports.save = (recipe, done) => {
+  /*dbPool.query('INSERT INTO Recipes SET ?', [recipe], (err, res, fields) => {
+    if (err) throw err;
+
+    done(null, res);
+  });*/
+}

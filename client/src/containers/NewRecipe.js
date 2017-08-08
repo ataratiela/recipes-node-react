@@ -3,6 +3,16 @@ import RecipeForm from '../views/RecipeForm';
 
 import axios from 'axios';
 
+function readFile(file, done) {
+  let reader = new FileReader();
+
+  reader.onload = function (readerEvt) {
+    done(reader.result);
+  };
+
+  reader.readAsDataURL(file);
+}
+
 class NewRecipe extends Component {
   constructor(props) {
     super(props);
@@ -12,17 +22,17 @@ class NewRecipe extends Component {
         name: '',
         description: '',
         image: '',
-        difficulty: null,
-        diners: null,
-        prepTime: null,
+        difficulty: '',
+        diners: '',
+        prepTime: '',
         category: 1
       },
       categories: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
   componentDidMount() {
@@ -37,36 +47,62 @@ class NewRecipe extends Component {
   }
 
   handleSubmit(event) {
+    const url = '/recipes';
+
     event.preventDefault();
+
+    console.log(this.state.recipe);
+    
+    axios.post(url, this.state.recipe)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
-  handleCategoryChange(event) {
-    const category = event.target.value;
+  handleInputChange(event) {
+    const target = event.target;
+    const name = target.name;
     let recipe = Object.assign({}, this.state.recipe);
 
-    recipe.category = category;
+    switch(target.type) {
+      case 'checkbox':
+        recipe[name.split('-').shift()] = name.split('-').pop(); 
+        break;
+      case 'select-one':
+        recipe.category = target.value;
+        break;
+      default:
+        recipe[name] = target.value;
+        break;
+    }
 
     this.setState({ recipe: recipe });
   }
 
-  handleDifficultyChange(event) {
-    const difficulty = event.target.name;
-    let recipe = Object.assign({}, this.state.recipe);
+  handleImageChange(event) {
+    const image = event.target.files[0];
 
-    recipe.difficulty = Number(difficulty.split('-').pop());
+    readFile(image, (imageBase64) => {
+      let recipe = Object.assign({}, this.state.recipe);
 
-    this.setState({ recipe: recipe });
+      recipe.image = imageBase64;
+
+      this.setState({ recipe: recipe });
+    });
   }
 
   render() {
     return (
       <div className='content full-width'>
         <RecipeForm
-          recipe={ this.state.recipe }
-          categories={ this.state.categories }
-          submit={ this.handleSubmit }
-          handleCategoryChange={ this.handleCategoryChange }
-          handleDifficultyChange={ this.handleDifficultyChange } />
+          recipe={this.state.recipe}
+          categories={this.state.categories}
+          submit={this.handleSubmit}
+          handleInputChange={this.handleInputChange}
+          handleImageChange={this.handleImageChange} />
       </div>
     );
   }

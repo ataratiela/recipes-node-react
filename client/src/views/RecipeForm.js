@@ -4,11 +4,15 @@ function RecipeForm (props) {
   const { 
     name, description, image, difficulty, 
     diners, prepTime, category 
-  } = props;
+  } = props.recipe;
 
   const categories = props.categories.map(c => {
     return <option key={ c.categoryID } value={ c.categoryID }>{ c.name }</option>
   });
+
+  let recipeImage = image 
+    ? <img src={ 'data:image/png;' + image } alt='Recipe' />
+    : null;
 
   return (
     <form onSubmit={ props.submit }>
@@ -16,21 +20,24 @@ function RecipeForm (props) {
         name='name'
         type='text'
         placeholder='Recipe name...'
-        value={ name } />
-      <textarea
-        name='description'
-        placeholder='Recipe description...'
-        value={ description } />
+        value={ name } 
+        onChange={ props.handleInputChange } />
       <label>
         Recipe image:
         <input
           name='image'
           type='file'
-          value={ image } />
+          onChange={ props.handleImageChange } />
       </label>
+      { recipeImage }
+      <textarea
+        name='description'
+        placeholder='Recipe description...'
+        value={ description }
+        onChange={ props.handleInputChange } />
       <label>
         Category:
-        <select value={ category } onChange={ props.handleCategoryChange }>
+        <select value={ category } onChange={ props.handleInputChange }>
           { categories }
         </select>
       </label>
@@ -41,7 +48,8 @@ function RecipeForm (props) {
           type='number'
           min='1'
           step='1'
-          value={ diners } />
+          value={ diners } 
+          onChange={ props.handleInputChange } />
       </label>
       <label>
         Preparation time:
@@ -49,7 +57,8 @@ function RecipeForm (props) {
           name='prepTime'
           type='number'
           min='0'
-          value={ prepTime } />
+          value={ prepTime }
+          onChange={ props.handleInputChange } />
       </label>
       <label>
         Difficulty:
@@ -57,27 +66,27 @@ function RecipeForm (props) {
           name='difficulty-1'
           type='checkbox'
           checked={ difficulty >= 1 }
-          onChange={ props.handleDifficultyChange } />
+          onChange={ props.handleInputChange } />
         <input
           name='difficulty-2'
           type='checkbox'
           checked={ difficulty >= 2 }
-          onChange={ props.handleDifficultyChange } />
+          onChange={ props.handleInputChange } />
         <input
           name='difficulty-3'
           type='checkbox'
           checked={ difficulty >= 3 }
-          onChange={ props.handleDifficultyChange } />
+          onChange={ props.handleInputChange } />
         <input
           name='difficulty-4'
           type='checkbox'
           checked={ difficulty >= 4 }
-          onChange={ props.handleDifficultyChange } />
+          onChange={ props.handleInputChange } />
         <input
           name='difficulty-5'
           type='checkbox'
           checked={ difficulty >= 5 }
-          onChange={ props.handleDifficultyChange } />
+          onChange={ props.handleInputChange } />
       </label>
       <input type="submit" value="Create Recipe" />
     </form>

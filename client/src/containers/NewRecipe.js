@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import RecipeForm from '../views/RecipeForm';
 
+import axios from 'axios';
+
 class NewRecipe extends Component {
   constructor(props) {
     super(props);
@@ -20,6 +22,17 @@ class NewRecipe extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
+  }
+
+  componentDidMount() {
+    const url = '/categories';
+
+    axios.get(url)
+      .then(({ data }) => {
+        this.setState({
+          categories: data
+        })
+      });
   }
 
   handleSubmit(event) {

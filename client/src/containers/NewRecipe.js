@@ -59,19 +59,13 @@ class NewRecipe extends Component {
   }
 
   render() {
-    const recipe = this.state.recipe;
-
     return (
       <div className='content full-width'>
         <RecipeForm
-          name={ recipe.name }
-          description={ recipe.description }
-          image={ recipe.image }
-          difficulty={ recipe.difficulty }
-          diners={ recipe.diners }
-          prepTime={ recipe.prepTime }
-          category={ recipe.category }
-          submit={ this.handleSubmit } 
+          recipe={ this.state.recipe }
+          categories={ this.state.categories }
+          submit={ this.handleSubmit }
+          handleCategoryChange={ this.handleCategoryChange }
           handleDifficultyChange={ this.handleDifficultyChange } />
       </div>
     );

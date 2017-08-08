@@ -1,6 +1,6 @@
 var dbPool = require('../db/db-connector');
 
-const recipe = ({ CategoyID, Name }) => {
+const category = ({ CategoryID, Name }) => {
 
   let state = {
     categoryID: CategoryID,

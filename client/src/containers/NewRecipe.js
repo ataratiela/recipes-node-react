@@ -15,12 +15,13 @@ class NewRecipe extends Component {
         difficulty: null,
         diners: null,
         prepTime: null,
-        category: null
+        category: 1
       },
       categories: []
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleDifficultyChange = this.handleDifficultyChange.bind(this);
   }
 
@@ -39,9 +40,17 @@ class NewRecipe extends Component {
     event.preventDefault();
   }
 
+  handleCategoryChange(event) {
+    const category = event.target.value;
+    let recipe = Object.assign({}, this.state.recipe);
+
+    recipe.category = category;
+
+    this.setState({ recipe: recipe });
+  }
+
   handleDifficultyChange(event) {
     const difficulty = event.target.name;
-
     let recipe = Object.assign({}, this.state.recipe);
 
     recipe.difficulty = Number(difficulty.split('-').pop());

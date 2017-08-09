@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
+
 import RecipeForm from '../views/RecipeForm';
 
 import axios from 'axios';
@@ -25,9 +27,10 @@ class NewRecipe extends Component {
         difficulty: '',
         diners: '',
         prepTime: '',
-        category: 1
+        categoryID: 1
       },
-      categories: []
+      categories: [],
+      createdRecipe: null
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,15 +53,10 @@ class NewRecipe extends Component {
     const url = '/recipes';
 
     event.preventDefault();
-
-    console.log(this.state.recipe);
     
     axios.post(url, this.state.recipe)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
+      .then(response => {
+        this.setState({ createdRecipe: response.data.id });
       });
   }
 
@@ -72,7 +70,7 @@ class NewRecipe extends Component {
         recipe[name.split('-').shift()] = name.split('-').pop(); 
         break;
       case 'select-one':
-        recipe.category = target.value;
+        recipe.categoryID = target.value;
         break;
       default:
         recipe[name] = target.value;
@@ -97,12 +95,16 @@ class NewRecipe extends Component {
   render() {
     return (
       <div className='content full-width'>
-        <RecipeForm
-          recipe={this.state.recipe}
-          categories={this.state.categories}
-          submit={this.handleSubmit}
-          handleInputChange={this.handleInputChange}
-          handleImageChange={this.handleImageChange} />
+        {
+          this.state.createdRecipe 
+            ? <Redirect to={ '/recipes/' + this.state.createdRecipe } />
+            : <RecipeForm
+                recipe={this.state.recipe}
+                categories={this.state.categories}
+                submit={this.handleSubmit}
+                handleInputChange={this.handleInputChange}
+                handleImageChange={this.handleImageChange} />
+        } 
       </div>
     );
   }

@@ -1,11 +1,8 @@
 var dbPool = require('../db/db-connector');
 
-const category = ({ CategoryID, Name }) => {
+const category = (category) => {
 
-  let state = {
-    categoryID: CategoryID,
-    name: Name
-  }
+  let state = category;
 
   return {
     state

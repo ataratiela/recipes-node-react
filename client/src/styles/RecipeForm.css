@@ -71,7 +71,7 @@ select, option {
     left: 20px;
     width: 16px;
     height: 16px;
-    background: url('/samples/star-rating/star.png') 0 -16px;
+    background: url('/imgs/star.png') 0 -16px;
 }
 
 .rating:hover .rating-star:hover,
@@ -87,5 +87,5 @@ select, option {
     display: block;
     width: 16px;
     height: 16px;
-    background: url('/star.png') 0 -16px;
+    background: url('/imgs/star.png') 0 -16px;
 }

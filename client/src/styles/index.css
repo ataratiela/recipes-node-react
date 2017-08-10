@@ -24,6 +24,10 @@ a, a:visited, a:hover, a:active {
   padding-top: 42px;
 }
 
+.content-form {
+  padding-top: 96px;
+}
+
 .full-width {
   width: 100%;
   margin: auto;
@@ -32,9 +36,12 @@ a, a:visited, a:hover, a:active {
 
 .btn {
   display: inline-block;
+  cursor: pointer;
+  width: auto;
   height: 36px;
   font-size: 14px;
   line-height: 36px;
+  margin: 0 6px;
   padding: 0px 16px;
   border-radius: 999em;
   text-transform: uppercase;
@@ -49,7 +56,14 @@ a, a:visited, a:hover, a:active {
   background-color: #FF3D00;
 }
 
+.btn-secondary {
+  color: #FF3D00;
+  border: 1px solid #FF3D00;
+  background-color: #FFF;
+}
+
 .btn-nav {
+  margin: 0;
   height: 40px;
   line-height: 40px;
   border-radius: 0px;
@@ -63,4 +77,38 @@ a, a:visited, a:hover, a:active {
 
 .btn-nav.selected {
   border-bottom: 2px solid #FF3D00;
+}
+
+label {
+  display: flex;
+  flex-wrap: wrap;
+  color: rgba(0, 0, 0, 0.57);
+  font-weight: bold;
+}
+
+textarea {
+  resize: none;
+}
+
+select {
+  font-weight: bold;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: none;
+  display: block;
+  margin-bottom: 24px;
+  color: rgba(0, 0, 0, 0.57);
+}
+
+
+input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0;
+}
+
+.form-btns {
+  display: flex;
+  flex-direction: row-reverse;
 }

@@ -1,0 +1,91 @@
+input[name="name"] {
+  font-size: 64px;
+  margin-bottom: 24px;
+  font-weight: bold;
+}
+
+label, textarea[name="description"], input[type="number"] {
+  font-size: 24px;
+}
+
+input[type="number"] {
+  flex: 1 1;
+  width: auto;
+  margin-left: 24px;
+  display: inline-block;
+}
+
+select, option {
+  -webkit-appearance : none; 
+  -moz-appearance : none;  
+  background : none;
+}
+
+.form-select select {
+  background: transparent;
+  font-size: 24px;
+  border: 0;
+  border-radius: 0;
+  height: 34px;
+}
+
+.form-select select:focus {
+  outline: none;
+}
+
+.form-select option {
+  padding: 0;
+}
+
+.recipe-form-image {
+  height: 128px;
+  margin-bottom: 24px;
+}
+
+.content-form span {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  color: rgba(0, 0, 0, 0.57);
+}
+
+.rating {
+    /*overflow: hidden;*/
+    display: inline-block;
+}
+
+.rating-input {
+    float: right;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0 0 0 -6px;
+    opacity: 0;
+}
+
+.rating-star {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    top: 6px;
+    left: 20px;
+    width: 16px;
+    height: 16px;
+    background: url('/imgs/star.png') 0 -16px;
+}
+
+.rating:hover .rating-star:hover,
+.rating:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+
+.rating-star,
+.rating:hover .rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('/imgs/star.png') 0 -16px;
+}

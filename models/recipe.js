@@ -1,30 +1,66 @@
-var dbPool = require('../db/db-connector');
+const dbPool = require('../db/db-connector');
+const path = require('path');
+const fs = require('fs');
 
-const recipe = ({ RecipeID, Name, Description, Image, 
-    Dificulty, Diners, PrepTime, UserID, CategoryID }) => {
+function saveImage(name, image) {
+	const { filePath, fileData, fileName } = formatImage(name, image);
+	const route = '/imgs/' + fileName;
 
-  let state = {
-    recipeID: RecipeID,
-    name: Name,
-    description: Description,
-    image: Image,
-    dificulty: Dificulty,
-    diners: Diners,
-    PrepTime: PrepTime,
-    userID: UserID,
-    categoryID: CategoryID
-  }
-
-  return {
-    state
-  } 
+	return new Promise((resolve, reject) => {
+		fs.writeFile(filePath, fileData, 'base64', function (err) {
+			if (err) reject(err);
+			else resolve(route);
+		});
+	});
 }
 
-exports.findAll = (done) => {
-  dbPool.query('SELECT * FROM Recipes', (err, res, fields) => {
-    if (err) throw err;
+function formatImage(name, image) {
+	let fileName = name.toLowerCase().replace(' ', '-');
+	let fileData = null;
 
-    let recipes = res.map(r => recipe(r)).map(r => r.state);
-    done(null, recipes);
-  });
+	if (image.slice(0, 20).includes('png')) {
+		fileName = fileName + '.png';
+		fileData = image.replace(/^data:image\/png;base64,/, '');
+	}
+	else {
+		fileName = fileName + '.jpg';
+		fileData = image.replace(/^data:image\/jpeg;base64,/, '');
+	}
+
+	const filePath = path.join(__dirname, '../public/imgs/' + fileName);
+
+	return { filePath, fileData, fileName };
+}
+
+const recipe = (recipe) => {
+	let state = recipe;
+
+	return {
+		state
+	}
+}
+
+exports.new = recipe;
+
+exports.findAll = (done) => {
+	dbPool.query('SELECT * FROM Recipes', (err, res, fields) => {
+		if (err) throw err;
+
+		let recipes = res.map(r => recipe(r)).map(r => r.state);
+		done(null, recipes);
+	});
 };
+
+exports.save = (recipe, done) => {
+	saveImage(recipe.name, recipe.image)
+		.then((route) => {
+			recipe.image = route
+			dbPool.query('INSERT INTO Recipes SET ?', [recipe], (err, res) => {
+				if (err) throw err;
+				done(err, res);
+			});
+		})
+		.catch(err => {
+			done(err);
+		});
+}

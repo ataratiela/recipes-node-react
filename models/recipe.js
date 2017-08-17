@@ -18,7 +18,7 @@ function formatImage(name, image) {
 	let fileName = name.toLowerCase().replace(' ', '-');
 	let fileData = null;
 
-	if (image.includes('png')) {
+	if (image.slice(0, 20).includes('png')) {
 		fileName = fileName + '.png';
 		fileData = image.replace(/^data:image\/png;base64,/, '');
 	}

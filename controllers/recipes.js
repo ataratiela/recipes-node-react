@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
 
 	Recipe.save(recipe.state, (err, response) => {
 		if(!err) {
-			res.status(201).json({ id: response.insertId });
+			res.status(201).json({ id: response });
 		}
 		else {
 			res.status(500).end();

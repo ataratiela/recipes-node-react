@@ -4,16 +4,33 @@ import '../styles/RecipeForm.css';
 function RecipeForm(props) {
   const {
     name, description, image, difficulty,
-    diners, prepTime, category
+    diners, prepTime, category, steps
   } = props.recipe;
+
+  const recipeImage = image
+    ? <img className='recipe-form-image' src={ 'data:image/png;' + image } alt='Recipe' />
+    : null;
 
   const categories = props.categories.map(c => {
     return <option key={ c.categoryID } value={ c.categoryID }>{ c.name }</option>
   });
 
-  let recipeImage = image
-    ? <img className='recipe-form-image' src={ 'data:image/png;' + image } alt='Recipe' />
-    : null;
+  const stepInputs = steps.map((s, i, arr) => {
+    return <div key={ s.id } className='step-input-container'>
+        <input
+          name={ 'step-' + s.id }
+          type='text'
+          placeholder='Step'
+          value={ s.value }
+          onChange={ props.handleStepChange } />
+
+        { (i === arr.length - 1) 
+            ? <button name={ 'addstep-' + (s.id + 1) } type='button' className='btn btn-secondary' onClick={ props.handleAddState }>+</button>
+            : <button name={ 'rmvstep-' + s.id } type='button' className='btn btn-secondary' onClick={ props.handleRemoveState }>-</button>
+        }
+      </div>
+  });
+
 
   return (
     <form onSubmit={ props.submit } onReset={ props.reset }>
@@ -116,6 +133,10 @@ function RecipeForm(props) {
           className="rating-input" />
         <label htmlFor='difficulty-1' className='rating-star' />
       </span>
+      
+      <label>Steps</label>
+      { stepInputs }
+
       <div className='form-btns'>
         <input className='btn btn-fill' type="submit" value="Create" />
         <input className='btn btn-secondary' type="reset" value="Reset" />

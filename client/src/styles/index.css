@@ -42,10 +42,17 @@ a, a:visited, a:hover, a:active {
   height: 36px;
   font-size: 14px;
   line-height: 36px;
-  margin: 0 6px;
   padding: 0px 16px;
   border-radius: 999em;
   text-transform: uppercase;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn-fill, .btn-secondary {
+  margin: 0 6px;
 }
 
 .btn.btn-fill {

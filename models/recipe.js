@@ -52,12 +52,53 @@ exports.findAll = (done) => {
 };
 
 exports.save = (recipe, done) => {
-	saveImage(recipe.name, recipe.image)
-		.then((route) => {
-			recipe.image = route
-			dbPool.query('INSERT INTO Recipes SET ?', [recipe], (err, res) => {
-				if (err) throw err;
-				done(err, res);
+	let { name, image, steps } = recipe;
+
+
+	delete recipe.steps;
+
+	saveImage(name, image)
+		.then(route => {
+			recipe.image = route;
+			dbPool.getConnection((error, connection) => {
+				connection.beginTransaction(err => {
+					if (error) { 
+						connection.release();
+						throw error; 
+					}
+					
+					connection.query('INSERT INTO Recipes SET ?', [recipe], (err, res) => {
+						if (err) {
+							return connection.rollback(function () {
+								connection.release();
+								throw err;
+							});
+						}
+
+						const insertSets = steps.map(s => {
+							return [ s.value, res.insertId ];
+						});
+
+						connection.query('INSERT INTO Steps (step, recipeID) VALUES ?', [insertSets], function (error, results) {
+							if (error) {
+								return connection.rollback(function () {
+									connection.release();
+									throw error;
+								});
+							}
+							connection.commit(function (err) {
+								if (err) {
+									return connection.rollback(function () {
+										connection.release();
+										throw err;
+									});
+								}
+								connection.release();
+								done(err, res.insertId);
+							});
+						});
+					});
+				});
 			});
 		})
 		.catch(err => {

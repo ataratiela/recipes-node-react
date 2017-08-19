@@ -27,7 +27,8 @@ class NewRecipe extends Component {
         difficulty: '',
         diners: '',
         prepTime: '',
-        categoryID: 0
+        categoryID: 0,
+        steps: [{ id: 0, value: ''}]
       },
       categories: [],
       createdRecipe: null
@@ -37,6 +38,9 @@ class NewRecipe extends Component {
     this.handleReset = this.handleReset.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
+    this.handleStateChange = this.handleStateChange.bind(this);
+    this.handleAddState = this.handleAddState.bind(this);
+    this.handleRemoveState = this.handleRemoveState.bind(this);
   }
 
   componentDidMount() {
@@ -69,7 +73,8 @@ class NewRecipe extends Component {
       difficulty: '',
       diners: '',
       prepTime: '',
-      categoryID: 0
+      categoryID: 0,
+      steps: [{ id: 0, value: ''}]
     };
 
     this.setState({ recipe });
@@ -113,6 +118,39 @@ class NewRecipe extends Component {
     }
   }
 
+  handleStateChange(event) {
+    const target = event.target;
+    const name = target.name;
+    const id = Number(name.split('-')[1]);
+    let recipe = Object.assign({}, this.state.recipe);
+
+    recipe.steps.find(s => s.id === id).value = target.value;
+
+    this.setState({ recipe });
+  }
+
+  handleAddState(event) {
+    const target = event.target;
+    const name = target.name;
+    const id = Number(name.split('-')[1]);
+    let recipe = Object.assign({}, this.state.recipe);
+
+    recipe.steps.push({ id, value: '' });
+
+    this.setState({ recipe });
+  }
+
+  handleRemoveState(event) {
+    const target = event.target;
+    const name = target.name;
+    const index = Number(name.split('-')[1]);
+    let recipe = Object.assign({}, this.state.recipe);
+
+    recipe.steps = recipe.steps.filter(s => s.id !== index);
+
+    this.setState({ recipe });
+  }
+
   render() {
     return (
       this.state.createdRecipe
@@ -124,7 +162,10 @@ class NewRecipe extends Component {
               submit={ this.handleSubmit }
               reset={ this.handleReset }
               handleInputChange={ this.handleInputChange }
-              handleImageChange={ this.handleImageChange } />
+              handleImageChange={ this.handleImageChange } 
+              handleStepChange={ this.handleStateChange } 
+              handleAddState={ this.handleAddState } 
+              handleRemoveState={ this.handleRemoveState } />
           </div >
     );
   }

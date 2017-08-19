@@ -89,3 +89,23 @@ select, option {
     height: 16px;
     background: url('/imgs/star.png') 0 -16px;
 }
+
+.step-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.step-input-container input {
+  font-size: 24px;
+  margin: 12px 0px;
+}
+
+.step-input-container .btn {
+  width: 36px;
+  font-size: 18px;
+  padding: 0px 12px;
+}
+
+.form-btns {
+  margin: 24px 0px;
+}

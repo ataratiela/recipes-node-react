@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
+const logins = require('./controllers/login');
 const users = require('./controllers/users');
 const recipes = require('./controllers/recipes');
 const categories = require('./controllers/categories');
@@ -18,6 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+app.use('/login', logins);
 app.use('/users', users);
 app.use('/recipes', recipes);
 app.use('/categories', categories);

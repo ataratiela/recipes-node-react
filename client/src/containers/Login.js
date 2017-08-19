@@ -31,11 +31,11 @@ class Login extends Component {
     event.preventDefault();
     axios.post('/login', { user: this.state.user, pass: this.state.pass })
       .then(({ data }) => {
-        console.log(data);
         this.setState({ loggedUserId: data.id });
       })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        console.log(this);
+        this.setState({ user: '', pass: '' });
       });
   }
 
@@ -43,17 +43,17 @@ class Login extends Component {
     return (
       this.state.loggedUserId !== ''
         ? <Redirect to={'/recipes'} />
-        : <form className='form' onSubmit={this.onFormSubmit}>
+        : <form className='content full-width' onSubmit={this.onFormSubmit}>
           <label>
             User:
-            <input type="text" name="user" onChange={this.onFormChange} />
+            <input type="text" name="user" value={this.state.user} onChange={this.onFormChange} />
           </label>
           <label>
             Password:
-            <input type="password" name="pass" onChange={this.onFormChange} />
+            <input type="password" name="pass" value={this.state.pass} onChange={this.onFormChange} />
           </label>
           <input type="submit" />
-          {/*<Link to={'/user/new'}>Register now</Link>*/}
+          <Link to={'/users/new'}>Register now</Link>
         </form>
     );
   }

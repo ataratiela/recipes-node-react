@@ -1,21 +1,30 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../styles/Navbar.css';
 
 function Navbar(props) {
+  const { user, onLogin, onLogout } = props;
+
+  const rightButtons = user 
+    ? <div>
+        <span>{ user }</span>
+        <button className='btn btn-fill' onClick={ onLogout }>Log Out</button>
+      </div>
+    : <button className='btn btn-fill' onClick={ onLogin }>Log In</button> 
+
   return (
     <div className='Navbar'>
       <div className='nav-content full-width'>
         <div className='nav-primary'>
           <NavLink
             exact
-            to="/"
+            to="/recipes"
             className='btn btn-nav'
             activeClassName="selected"
           >Home</NavLink>
         </div>
         <div className='nav-secondary'>
-          <Link className='btn btn-fill' to='/'>Log Out</Link>
+          { rightButtons }
         </div>
       </div>
     </div>

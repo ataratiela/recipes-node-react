@@ -37,6 +37,7 @@ a, a:visited, a:hover, a:active {
 .btn {
   display: inline-block;
   cursor: pointer;
+  border: none;
   width: auto;
   height: 36px;
   font-size: 14px;

@@ -29,9 +29,15 @@ class Recipes extends Component {
 
   render() {
     const { recipes } = this.state;
-
     const recipeList = recipes.map((r) => {
-      return <Thumbnail key={ r.recipeID } id={ r.recipeID } image={ r.image } title={ r.name } description={ r.description } />
+      return <Thumbnail 
+        key={ r.recipeID } 
+        id={ r.recipeID } 
+        image={ r.image } 
+        title={ r.name } 
+        description={ r.description } 
+        mainLink={ <Link className='btn btn-fill' to={ '/recipes/' + r.recipeID }>Show</Link> }
+      />
     })
 
     const headerLink = <Link to='/recipes/new'>new recipe ></Link>;

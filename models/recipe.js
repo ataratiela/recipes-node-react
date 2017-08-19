@@ -66,7 +66,7 @@ exports.save = (recipe, done) => {
 						connection.release();
 						throw error; 
 					}
-					console.log(recipe);
+					
 					connection.query('INSERT INTO Recipes SET ?', [recipe], (err, res) => {
 						if (err) {
 							return connection.rollback(function () {

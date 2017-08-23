@@ -1,19 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import {
-  Link
-} from 'react-router-dom';
 import '../styles/Navbar.css';
 
 function Navbar(props) {
-  const { user, onLogin, onLogout } = props;
+  const { user, logoutButton, loginButton } = props;
 
   const rightButtons = user 
     ? <div>
         <span>{ user }</span>
-        <button className='btn btn-fill' onClick={ onLogout }>Log Out</button>
+        { logoutButton }
       </div>
-    : <button className='btn btn-fill' onClick={ onLogin }><Link to={'/login'}>Register now</Link></button> 
+    : <div>{ loginButton }</div>
 
   return (
     <div className='Navbar'>

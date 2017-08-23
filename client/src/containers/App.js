@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+  Link
+} from 'react-router-dom';
 import Navbar from '../views/Navbar';
 
 import userStore from '../stores/user';
@@ -14,12 +17,11 @@ class App extends Component {
       }
     }
 
-    this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.userStoreDidChange = this.userStoreDidChange.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     userStore.subscribe(this.userStoreDidChange);
     this.userStoreDidChange();
   }
@@ -30,20 +32,18 @@ class App extends Component {
     this.setState({ user });
   }
 
-  handleLogin(event) {
-    /* TODO: Aqui hay que hacer el login con AJAX (metodo POST) */
-    userStore.dispatch({ type: 'LOGIN', user: { id: 'sergiga', name: 'Sergio García Villanueva' } });
-  }
-
   handleLogout(event) {
-    /* TODO: Aqui hay que hacer el logout con AJAX (metodo DELETE) */
     userStore.dispatch({ type: 'LOGOUT' });
   }
 
   render() {
     return (
       <div>
-        <Navbar user={ this.state.user.name } onLogin={ this.handleLogin } onLogout={ this.handleLogout } />
+        <Navbar 
+          user={ this.state.user.name } 
+          loginButton={ <Link className='btn btn-fill' to={'/login'}>Login</Link> }
+          logoutButton={ <button className='btn btn-fill' onClick={ this.handleLogout }>Log Out</button> }
+          />
 
         { this.props.children }
       </div>

@@ -11,6 +11,8 @@ import Recipe from './containers/Recipe';
 import Recipes from './containers/Recipes';
 import NewRecipe from './containers/NewRecipe';
 import Authorization from './containers/Authorization';
+import Login from './containers/Login';
+import Register from './containers/Register';
 
 import './styles/index.css';
 
@@ -23,6 +25,8 @@ const routes = (
         <Route name='newRecipe' path="/recipes/new" component={ Client(NewRecipe) }/>
         <Route name='recipe' path="/recipes/:id" component={ Recipe }/>
         <Route name='recipes' path="/recipes" component={ Recipes }/>
+        <Route name='login' path="/login" component={ Login } />
+        <Route name='register' path="/register" component={ Register } />
         {/* Redirects */}
         <Redirect from="/" to="/recipes" />
       </Switch>

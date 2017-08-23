@@ -3,53 +3,50 @@ const router = express.Router();
 const user = require('../models/user');
 
 router.get('/', (req, res) => {
-    user.findAll((error, result) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify( error || result ));
+    user.findAll((error, results) => {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.status(200).json(results);
+        }
     });
 });
 
 router.get('/edit/:userID', (req, res) => {
-    const userID = req.params.userID;
+    const userID = req.params.UserID;
 
-    user.findByID(userID, (error, result) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify( error || result ));
-    });
-});
-
-router.get('/add', (req, res) => {
-    const user = {
-        userID : req.body.userID,
-		name : req.body.name,
-		password : req.body.password
-    }
-
-    user.save(user, (error, result) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify( error || result ));
+    user.findByID(UserID, (error, results) => {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.status(200).json(results);
+        }
     });
 });
 
 router.put('/update/:userID', (req, res) => {
-    const user = {
-        userID : req.body.userID,
-		name : req.body.name,
-		password : req.body.password
-    }
+    const userID = req.body.UserID;
+    const name = req.body.Name;
+    const password = req.body.Passwd;
 
-    user.update(user, (error, result) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify( error || result ));
+    user.update(user, (error, results) => {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.status(200).end(results);
+        }
     });
 });
 
 router.delete('/delete/:userID', (req, res) => {
-    const userID = req.params.userID;
+    const userID = req.params.UserID;
 
-    user.delete(userID, (error, result) => {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify( error || result ));
+    user.delete(userID, (error, results) => {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.status(200).json(results);
+        }
     });
 });
 

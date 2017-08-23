@@ -34,8 +34,8 @@ exports.save = (userID, name, pass, done) => {
 	});
 };
 
-exports.update = (user, done) => {
-	dbPool.query('UPDATE Users SET ? WHERE UserID = ?', [user, user.userID], (err, res, fields) => {
+exports.update = (userID, name, pass, done) => {
+	dbPool.query('UPDATE Users SET ? WHERE UserID = ?', [userID, name, pass], (err, res, fields) => {
 		if (err) throw err;
 		done(err, res);
 	});

@@ -24,34 +24,16 @@ router.get('/edit/:userID', (req, res) => {
     });
 });
 
-router.get('/add', (req, res) => {
-    const user = {
-        userID: req.body.UserID,
-        name: req.body.Name,
-        password: req.body.Passwd
-    }
-
-    user.save(user, (error, results) => {
-        if (err) {
-            res.status(500).end();
-        } else {
-            res.status(200).json(results);
-        }
-    });
-});
-
 router.put('/update/:userID', (req, res) => {
-    const user = {
-        userID: req.body.UserID,
-        name: req.body.Name,
-        password: req.body.Passwd
-    }
+    const userID = req.body.UserID;
+    const name = req.body.Name;
+    const password = req.body.Passwd;
 
     user.update(user, (error, results) => {
         if (err) {
             res.status(500).end();
         } else {
-            res.status(200).json(results);
+            res.status(200).end(results);
         }
     });
 });

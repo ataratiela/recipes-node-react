@@ -27,7 +27,6 @@ router.post('/auth', (req, res) => {
 
       res.status(200).json({
         success: true,
-        user: user,
         token: token
       });
     }

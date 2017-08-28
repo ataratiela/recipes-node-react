@@ -20,10 +20,10 @@ exports.findAll = (done) => {
 	});
 };
 
-exports.findByID = (userID, done) => {
+exports.findById = (userID, done) => {
 	dbPool.query('SELECT * FROM Users WHERE UserID = ?', [userID], (err, res, fields) => {
 		if (err) throw err;
-		done(err, res);
+		done(err, res[0]);
 	});
 };
 

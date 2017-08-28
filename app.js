@@ -29,7 +29,7 @@ app.use('/users', users);
 app.use('/recipes', recipes);
 app.use('/categories', categories);
 
-app.get('/api', api);
+app.use('/api', api);
 
 app.get('*', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, 'client/build/index.html'));

@@ -53,4 +53,8 @@ route.use((req, res, next) => {
   }
 });
 
+app.use('/users', users);
+app.use('/recipes', recipes);
+app.use('/categories', categories);
+
 module.exports = router;

@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
-const logins = require('./login');
-const register = require('./register');
 const users = require('./users');
 const recipes = require('./recipes');
 const categories = require('./categories');

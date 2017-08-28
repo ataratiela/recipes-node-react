@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 router.post('/auth', (req, res) => {
   const { userId, pass } = req.body;
 
-  User.findById(userID, pass, (err, user) => {
+  User.findById(userId, pass, (err, user) => {
     if (err) {
       throw err;
     } else if (!user || user.passwd !== pass) {

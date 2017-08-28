@@ -9,29 +9,30 @@ const recipes = require('./recipes');
 const categories = require('./categories');
 
 router.post('/auth', (req, res) => {
-  const { userId, pass } = req.body;
+  const { userID, pass } = req.body;
 
-  User.findById(userId, pass, (err, user) => {
+  User.findById(userID, (err, user) => {
     if (err) {
       throw err;
     } else if (!user || user.passwd !== pass) {
       res.status(401).json({ success: false, message: 'Invalid user or password' });
     } else {
-      var token = jwt.sign(user, app.get('secret-token'), {
-        expiresInMinutes: 1440
+      const token = jwt.sign(user, req.app.get('secret-token'), {
+        expiresIn: '1d'
       });
 
       delete user.passwd;
 
       res.status(200).json({
         success: true,
+        user:user,
         token: token
       });
     }
   });
 });
 
-route.use((req, res, next) => {
+router.use((req, res, next) => {
   const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
@@ -51,8 +52,8 @@ route.use((req, res, next) => {
   }
 });
 
-app.use('/users', users);
-app.use('/recipes', recipes);
-app.use('/categories', categories);
+router.use('/users', users);
+router.use('/recipes', recipes);
+router.use('/categories', categories);
 
 module.exports = router;

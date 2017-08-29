@@ -4,6 +4,9 @@ import {
   Link
 } from 'react-router-dom';
 import axios from 'axios';
+
+import { loginAction } from '../actions/login';
+
 import userStore from '../stores/user';
 
 import '../styles/Login.css';
@@ -14,7 +17,7 @@ class Login extends Component {
     this.state = {
       user: '',
       pass: '',
-      loggedUserId: null
+      userID: null
     }
 
     this.userStoreDidChange = this.userStoreDidChange.bind(this);
@@ -33,21 +36,23 @@ class Login extends Component {
 
   userStoreDidChange(){
     const { id } = userStore.getState();
-    this.setState({ loggedUserId: id });
+    this.setState({ userID: id });
   }
 
   onFormChange(event) {
     const target = event.target;
     this.setState({
       [target.name]: target.value
-    })
+    });
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-    axios.post('/login', { user: this.state.user, pass: this.state.pass })
+    axios.post('/api/auth', { userID: this.state.user, pass: this.state.pass })
       .then(({ data }) => {
-        userStore.dispatch({ type: 'LOGIN', user:{id:data.userID, name:data.name}});
+        const { user, token } = data;
+
+        userStore.dispatch(loginAction({ id: user.userID, name: user.name, token: token }));
       })
       .catch((error) => {
         this.setState({ user: '', pass: '' });
@@ -55,17 +60,19 @@ class Login extends Component {
   }
 
   render() {
+    const { user, pass, userID } = this.state;
+
     return (
-      this.state.loggedUserId !== null
+      userID !== null
         ? <Redirect to={'/recipes'} />
         : <form className='content full-width' onSubmit={this.onFormSubmit}>
           <label>
             User:
-            <input type="text" name="user" value={this.state.user} onChange={this.onFormChange} />
+            <input type="text" name="user" value={user} onChange={this.onFormChange} />
           </label>
           <label>
             Password:
-            <input type="password" name="pass" value={this.state.pass} onChange={this.onFormChange} />
+            <input type="password" name="pass" value={pass} onChange={this.onFormChange} />
           </label>
           <input type="submit" />
           <Link to={'/register'}>Register now</Link>

@@ -6,6 +6,7 @@ const User = require('../models/user');
 
 const users = require('./users');
 const recipes = require('./recipes');
+const userRecipes = require('./userRecipes');
 const categories = require('./categories');
 
 router.post('/auth', (req, res) => {
@@ -33,7 +34,11 @@ router.post('/auth', (req, res) => {
   });
 });
 
-router.use((req, res, next) => {
+router.use('/users', users);
+router.use('/recipes', recipes);
+router.use('/categories', categories);
+
+router.use('/users/:user_id', (req, res, next) => {
   const token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
@@ -53,8 +58,6 @@ router.use((req, res, next) => {
   }
 });
 
-router.use('/users', users);
-router.use('/recipes', recipes);
-router.use('/categories', categories);
+router.use('/users/:user_id/recipes', userRecipes);
 
 module.exports = router;

@@ -1,15 +1,20 @@
 var dbPool = require('../db/db-connector');
 
 exports.loginSuccess = (userID, passwd, done) => {
-	dbPool.query('SELECT * FROM Users WHERE UserID = ? AND Passwd = ?', [userID, passwd], (err, res, fields) => {
+	dbPool.query('SELECT * FROM Users WHERE UserID = ?', [userID], (err, res, fields) => {
 		if (err) throw err;
 
 		const user = res[0];
 		if (user) {
-			delete user.passwd;
+			if(user.passwd === passwd){
+				delete user.passwd;
+				done(err, user);
+			}else{
+				done(['Incorrect password']);
+			}
+		} else {
+			done(['Invalid user']);
 		}
-
-		done(err, user);
 	});
 };
 

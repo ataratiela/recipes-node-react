@@ -52,7 +52,12 @@ class Login extends Component {
       .then(({ data }) => {
         const { user, token } = data;
 
-        userStore.dispatch(loginAction({ id: user.userID, name: user.name, token: token }));
+        userStore.dispatch(loginAction({ 
+          id: user.userID, 
+          name: user.name,
+          rol: user.rol, 
+          token 
+        }));
       })
       .catch((error) => {
         this.setState({ user: '', pass: '' });

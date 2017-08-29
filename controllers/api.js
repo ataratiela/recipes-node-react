@@ -21,12 +21,13 @@ router.post('/auth', (req, res) => {
         expiresIn: '1d'
       });
 
+      user.rol = 'client';
       delete user.passwd;
 
       res.status(200).json({
         success: true,
-        user:user,
-        token: token
+        user,
+        token
       });
     }
   });

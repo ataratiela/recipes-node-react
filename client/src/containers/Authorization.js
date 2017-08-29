@@ -33,8 +33,8 @@ const Authorization = (allowedRoles) =>
 
       render() {
         const { user } = this.state;
-        
-        if(user.id) {
+
+        if(allowedRoles.some(rol => rol === user.rol)) {
           return <WrappedComponent { ...this.props } />
         }
         else {

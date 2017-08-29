@@ -46,7 +46,7 @@ router.use('/users/:user_id', (req, res, next) => {
       if (err) {
         return res.status(401).json({ success: false, message: 'Failed to authenticate token.' });    
       } else {
-        req.decoded = decoded;    
+        req.user = decoded;    
         next();
       }
     });

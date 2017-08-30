@@ -10,7 +10,7 @@ router.post('/', (req, res) => {
 	let recipe = req.body;
 	recipe.userID = req.user.userID;
 
-	Recipe.save(recipe.state, (err, response) => {
+	Recipe.save(recipe, (err, response) => {
 		if(!err) {
 			res.status(201).json({ id: response });
 		}

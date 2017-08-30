@@ -4,6 +4,9 @@ import {
   Link
 } from 'react-router-dom';
 import axios from 'axios';
+
+import { loginAction } from '../actions/login';
+
 import userStore from '../stores/user';
 import Error from '../views/Error';
 
@@ -15,7 +18,7 @@ class Login extends Component {
     this.state = {
       user: '',
       pass: '',
-      loggedUserId: null,
+      userID: null,
       errors: []
     }
 
@@ -35,59 +38,65 @@ class Login extends Component {
 
   userStoreDidChange() {
     const { id } = userStore.getState();
-    this.setState({ loggedUserId: id });
+    this.setState({ userID: id });
   }
 
   onFormChange(event) {
     const target = event.target;
     this.setState({
       [target.name]: target.value
-    })
+    });
   }
 
   onFormSubmit(event) {
     event.preventDefault();
-    axios.post('/login', { user: this.state.user, pass: this.state.pass },
+    
+    axios.post('/api/auth', { userID: this.state.user, pass: this.state.pass },
       {
         validateStatus: function (status) {
           return status >= 200 && status < 500;
         }
       })
       .then(({ data, status }) => {
-        console.log(data);
         if(status >= 200 && status < 300){
-          userStore.dispatch({ type: 'LOGIN', user: { id: data.userID, name: data.name } });
+          const { user, token } = data;
+
+          userStore.dispatch(loginAction({ 
+            id: user.userID, 
+            name: user.name,
+            rol: user.rol, 
+            token 
+          }));
         }else if (status >= 400 && status < 499){
           this.setState({ errors: data })
         }else{
-          throw 'Unexpected status code';
+          throw new Error('Unexpected status code');
         }
       })
       .catch((error) => {
-        console.log('no ok');
-        console.log(error);
         this.setState({ user: '', pass: '' });
       });
   }
 
   render() {
-    const error = this.state.errors.length > 0
-      ? <Error name='Login error:' errors={this.state.errors} />
+    const { user, pass, userID, errors } = this.state;
+    const error = errors.length > 0
+      ? <Error name='Login error:' errors={errors} />
       : null;
 
     return (
-      this.state.loggedUserId !== null
+      userID !== null
         ? <Redirect to={'/recipes'} />
         : <div>
           {error}
           <form className='content full-width' onSubmit={this.onFormSubmit}>
             <label>
               User:
-                <input type="text" name="user" value={this.state.user} onChange={this.onFormChange} />
+                <input type="text" name="user" value={user} onChange={this.onFormChange} />
             </label>
             <label>
               Password:
-                <input type="password" name="pass" value={this.state.pass} onChange={this.onFormChange} />
+                <input type="password" name="pass" value={pass} onChange={this.onFormChange} />
             </label>
             <input type="submit" />
             <Link to={'/register'}>Register now</Link>

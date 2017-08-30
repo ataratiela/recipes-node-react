@@ -3,6 +3,8 @@ import { Redirect } from 'react-router';
 
 import RecipeForm from '../views/RecipeForm';
 
+import userStore from '../stores/user';
+
 import axios from 'axios';
 
 function readFile(file, done) {
@@ -20,6 +22,7 @@ class NewRecipe extends Component {
     super(props);
 
     this.state = {
+      user: null,
       recipe: {
         name: '',
         description: '',
@@ -43,8 +46,8 @@ class NewRecipe extends Component {
     this.handleRemoveState = this.handleRemoveState.bind(this);
   }
 
-  componentDidMount() {
-    const url = '/categories';
+  componentWillMount() {
+    const url = '/api/categories';
 
     axios.get(url)
       .then(({ data }) => {
@@ -52,17 +55,42 @@ class NewRecipe extends Component {
           categories: data
         })
       });
+
+    userStore.subscribe(this.userStoreDidChange);
+    this.userStoreDidChange();
+  }
+
+  componentWillUnmount(){
+    userStore.unsubscribe(this.userStoreDidChange);
+  }
+
+  userStoreDidChange(){
+    const user = userStore.getState();
+    this.setState({ user });
   }
 
   handleSubmit(event) {
-    const url = '/recipes';
+    const { id, token } = this.state.user;
+    const url = '/api/users/' + id + '/recipes';
 
     event.preventDefault();
 
-    axios.post(url, this.state.recipe)
-      .then(response => {
-        this.setState({ createdRecipe: response.data.id });
-      });
+    axios.post(url, this.state.recipe, {
+      headers: { 'x-access-token': token },
+      validateStatus: function (status) {
+        return status >= 200 && status < 500;
+      }
+    }).then(({ data, status }) => {
+      if(status >= 200 && status < 300) {
+        this.setState({ createdRecipe: data.id });
+      }
+      else if(status >= 400 && status < 500) {
+        //TODO: Handle client side error
+      }
+      else {
+        console.error('Unexpected status received');
+      }
+    });
   }
 
   handleReset(event) {

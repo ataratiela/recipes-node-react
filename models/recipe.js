@@ -32,28 +32,16 @@ function formatImage(name, image) {
 	return { filePath, fileData, fileName };
 }
 
-const recipe = (recipe) => {
-	let state = recipe;
-
-	return {
-		state
-	}
-}
-
-exports.new = recipe;
-
 exports.findAll = (done) => {
 	dbPool.query('SELECT * FROM Recipes', (err, res, fields) => {
 		if (err) throw err;
 
-		let recipes = res.map(r => recipe(r)).map(r => r.state);
-		done(null, recipes);
+		done(null, res);
 	});
 };
 
 exports.save = (recipe, done) => {
 	let { name, image, steps } = recipe;
-
 
 	delete recipe.steps;
 

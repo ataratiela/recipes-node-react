@@ -8,6 +8,7 @@ import axios from 'axios';
 import { loginAction } from '../actions/login';
 
 import userStore from '../stores/user';
+import Error from '../views/Error';
 
 import '../styles/Login.css';
 
@@ -17,7 +18,8 @@ class Login extends Component {
     this.state = {
       user: '',
       pass: '',
-      userID: null
+      userID: null,
+      errors: []
     }
 
     this.userStoreDidChange = this.userStoreDidChange.bind(this);
@@ -25,16 +27,16 @@ class Login extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  componentWillMount(){
+  componentWillMount() {
     userStore.subscribe(this.userStoreDidChange);
     this.userStoreDidChange();
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     userStore.unsubscribe(this.userStoreDidChange);
   }
 
-  userStoreDidChange(){
+  userStoreDidChange() {
     const { id } = userStore.getState();
     this.setState({ userID: id });
   }
@@ -48,16 +50,28 @@ class Login extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    axios.post('/api/auth', { userID: this.state.user, pass: this.state.pass })
-      .then(({ data }) => {
-        const { user, token } = data;
+    
+    axios.post('/api/auth', { userID: this.state.user, pass: this.state.pass },
+      {
+        validateStatus: function (status) {
+          return status >= 200 && status < 500;
+        }
+      })
+      .then(({ data, status }) => {
+        if(status >= 200 && status < 300){
+          const { user, token } = data;
 
-        userStore.dispatch(loginAction({ 
-          id: user.userID, 
-          name: user.name,
-          rol: user.rol, 
-          token 
-        }));
+          userStore.dispatch(loginAction({ 
+            id: user.userID, 
+            name: user.name,
+            rol: user.rol, 
+            token 
+          }));
+        }else if (status >= 400 && status < 499){
+          this.setState({ errors: data })
+        }else{
+          throw new Error('Unexpected status code');
+        }
       })
       .catch((error) => {
         this.setState({ user: '', pass: '' });
@@ -65,23 +79,29 @@ class Login extends Component {
   }
 
   render() {
-    const { user, pass, userID } = this.state;
+    const { user, pass, userID, errors } = this.state;
+    const error = errors.length > 0
+      ? <Error name='Login error:' errors={errors} />
+      : null;
 
     return (
       userID !== null
         ? <Redirect to={'/recipes'} />
-        : <form className='content full-width' onSubmit={this.onFormSubmit}>
-          <label>
-            User:
-            <input type="text" name="user" value={user} onChange={this.onFormChange} />
-          </label>
-          <label>
-            Password:
-            <input type="password" name="pass" value={pass} onChange={this.onFormChange} />
-          </label>
-          <input type="submit" />
-          <Link to={'/register'}>Register now</Link>
-        </form>
+        : <div>
+          {error}
+          <form className='content full-width' onSubmit={this.onFormSubmit}>
+            <label>
+              User:
+                <input type="text" name="user" value={user} onChange={this.onFormChange} />
+            </label>
+            <label>
+              Password:
+                <input type="password" name="pass" value={pass} onChange={this.onFormChange} />
+            </label>
+            <input type="submit" />
+            <Link to={'/register'}>Register now</Link>
+          </form>
+        </div>
     );
   }
 }

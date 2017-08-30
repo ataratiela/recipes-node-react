@@ -7,10 +7,10 @@ router.post('/', (req, res) => {
     const pass = req.body.pass;
 
     User.loginSuccess(userID, pass, (err, user) => {
-        if (err) {
+        if (err && !Array.isArray(err)) {
             res.status(500).end();
-        } else if (!user) {
-            res.status(401).end();
+        } else if (err) {
+            res.status(401).json(err);
         } else {
             res.status(200).json(user);
         }

@@ -43,8 +43,8 @@ class NewRecipe extends Component {
     this.handleRemoveState = this.handleRemoveState.bind(this);
   }
 
-  componentDidMount() {
-    const url = '/categories';
+  componentWillMount() {
+    const url = '/api/categories';
 
     axios.get(url)
       .then(({ data }) => {

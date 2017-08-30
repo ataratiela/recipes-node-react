@@ -36,8 +36,7 @@ exports.findAll = (done) => {
 	dbPool.query('SELECT * FROM Recipes', (err, res, fields) => {
 		if (err) throw err;
 
-		let recipes = res.map(r => recipe(r)).map(r => r.state);
-		done(null, recipes);
+		done(null, res);
 	});
 };
 

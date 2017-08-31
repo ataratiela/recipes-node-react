@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+h3 {
+  margin: 0px 0px 10px 0px;
+}
+
+p {
+  margin: 0px 0px 20px 0px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a, a:visited, a:hover, a:active {
+  color: inherit;
+}
+
+.content {
+  padding-top: 42px;
+}
+
+.content-form {
+  padding-top: 96px;
+}
+
+.full-width {
+  width: 100%;
+  margin: auto;
+  max-width: 1104px;
+}
+
+.btn {
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  width: auto;
+  height: 36px;
+  font-size: 14px;
+  line-height: 36px;
+  padding: 0px 16px;
+  border-radius: 999em;
+  text-transform: uppercase;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn-fill, .btn-secondary {
+  margin: 0 6px;
+}
+
+.btn.btn-fill {
+  color: #FFF;
+  background-color: #FF6E40;
+}
+
+.btn-fill:hover {
+  background-color: #FF3D00;
+}
+
+.btn-secondary {
+  color: #FF3D00;
+  border: 1px solid #FF3D00;
+  background-color: #FFF;
+}
+
+.btn-nav {
+  margin: 0;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 0px;
+  text-transform: capitalize;
+  border-bottom: 2px solid #FFFFFF;
+}
+
+.btn-nav:hover {
+  border-bottom: 2px solid #FF3D00;
+}
+
+.btn-nav.selected {
+  border-bottom: 2px solid #FF3D00;
+}
+
+label {
+  display: flex;
+  flex-wrap: wrap;
+  color: rgba(0, 0, 0, 0.57);
+  font-weight: bold;
+}
+
+textarea {
+  resize: none;
+}
+
+select {
+  font-weight: bold;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: none;
+  display: block;
+  margin-bottom: 24px;
+  color: rgba(0, 0, 0, 0.57);
+}
+
+
+input:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0;
+}
+
+.form-btns {
+  display: flex;
+  flex-direction: row-reverse;
+}

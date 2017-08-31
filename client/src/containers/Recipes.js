@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
-import Header from '../views/Header';
 import Thumbnail from '../views/Thumbnail';
+import RecipeFilterList from '../views/RecipeFilterList';
+
 import axios from 'axios';
 
 class Recipes extends Component {
@@ -30,20 +29,22 @@ class Recipes extends Component {
     const recipeList = recipes.map((r) => {
       return <Thumbnail 
         key={ r.recipeID } 
-        id={ r.recipeID } 
-        image={ r.image } 
-        title={ r.name } 
-        description={ r.description } 
-        mainLink={ <Link className='btn btn-fill' to={ '/recipes/' + r.recipeID }>Show</Link> }
+        { ...r }
       />
-    })
-
-    const headerLink = <Link to='/recipes/new'>new recipe ></Link>;
+    });
 
     return (
-      <div className='content full-width'>
-        <Header title='Recipes' link={ headerLink } />
-        <div className="Recipes">{ recipeList }</div>
+      <div className='container'>
+        <div className='columns'>
+          <div className='column-sidebar'>
+            <RecipeFilterList />
+          </div>
+          <div className="column-main">
+            <div className='recipe-list'>
+              { recipeList }
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -10,8 +10,6 @@ import { loginAction } from '../actions/login';
 import userStore from '../stores/user';
 import Error from '../views/Error';
 
-import '../styles/Login.css';
-
 class Login extends Component {
   constructor(props) {
     super(props);

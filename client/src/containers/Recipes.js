@@ -5,8 +5,6 @@ import Header from '../views/Header';
 import Thumbnail from '../views/Thumbnail';
 import axios from 'axios';
 
-import '../styles/Recipes.css';
-
 class Recipes extends Component {
   constructor(props) {
     super(props);

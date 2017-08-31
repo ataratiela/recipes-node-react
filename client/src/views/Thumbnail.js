@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/Thumbnail.css';
 
 function Thumbnail(props) {
   return (

@@ -46,7 +46,7 @@ u, ul, var, video {
 }
 
 .navbar a, .navbar span {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
     text-decoration: none;

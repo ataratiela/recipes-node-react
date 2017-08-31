@@ -41,7 +41,13 @@ u, ul, var, video {
 /* Site header styles */
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   max-height: 59px;
+  z-index: 9999;
+  background-color: #FFF;
   border-bottom: 1px solid #CCC;
 }
 
@@ -77,4 +83,11 @@ u, ul, var, video {
 
 .nav-filler {
   flex: 1;
+}
+
+/* Main content styles */
+
+.main-content {
+  position: relative;
+  top: 60px;
 }

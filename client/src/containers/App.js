@@ -38,7 +38,9 @@ class App extends Component {
       <div>
         <Navbar user={ this.state.user.name } />
 
-        { this.props.children }
+        <div className='main-content'>
+          { this.props.children }
+        </div>
       </div>
     );
   }

@@ -1,122 +1,76 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+a, abbr, acronym, address, applet, article,
+aside, audio, b, big, blockquote, body, canvas,
+caption, center, cite, code, dd, del, details,
+dfn, div, dl, dt, em, embed, fieldset, figcaption,
+figure, footer, form, h1, h2, h3, h4, h5, h6,
+header, hgroup, html, i, iframe, img, ins,
+kbd, label, legend, li, mark, menu, nav, object,
+ol, output, p, pre, q, ruby, s, samp, section,
+small, span, strike, strong, sub, summary, sup,
+table, tbody, td, tfoot, th, thead, time, tr, tt,
+u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
 }
 
-h3 {
-  margin: 0px 0px 10px 0px;
-}
+/* Generic styles */
 
-p {
-  margin: 0px 0px 20px 0px;
-}
-
-a {
-  text-decoration: none;
-}
-
-a, a:visited, a:hover, a:active {
-  color: inherit;
-}
-
-.content {
-  padding-top: 42px;
-}
-
-.content-form {
-  padding-top: 96px;
-}
-
-.full-width {
-  width: 100%;
+.container {
+  max-width: 1100px;
+  width: 1100px;
   margin: auto;
-  max-width: 1104px;
 }
 
-.btn {
+.center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-fill {
+  border-radius: 2px;
+  background-color: #FF9800;
+}
+
+/* Site header styles */
+
+.navbar {
+  max-height: 59px;
+  border-bottom: 1px solid #CCC;
+}
+
+.navbar a, .navbar span {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #444;
+    letter-spacing: 0.8px;
+}
+
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li , .navbar ul span {
   display: inline-block;
-  cursor: pointer;
-  border: none;
-  width: auto;
-  height: 36px;
-  font-size: 14px;
-  line-height: 36px;
-  padding: 0px 16px;
-  border-radius: 999em;
-  text-transform: uppercase;
 }
 
-.btn:focus {
-  outline: none;
-}
-
-.btn-fill, .btn-secondary {
-  margin: 0 6px;
-}
-
-.btn.btn-fill {
-  color: #FFF;
-  background-color: #FF6E40;
-}
-
-.btn-fill:hover {
-  background-color: #FF3D00;
-}
-
-.btn-secondary {
-  color: #FF3D00;
-  border: 1px solid #FF3D00;
-  background-color: #FFF;
-}
-
-.btn-nav {
-  margin: 0;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 0px;
-  text-transform: capitalize;
-  border-bottom: 2px solid #FFFFFF;
-}
-
-.btn-nav:hover {
-  border-bottom: 2px solid #FF3D00;
-}
-
-.btn-nav.selected {
-  border-bottom: 2px solid #FF3D00;
-}
-
-label {
-  display: flex;
-  flex-wrap: wrap;
-  color: rgba(0, 0, 0, 0.57);
-  font-weight: bold;
-}
-
-textarea {
-  resize: none;
-}
-
-select {
-  font-weight: bold;
-}
-
-input, textarea, select {
-  width: 100%;
-  border: none;
+.navbar ul li a, .navbar ul li span {
+  padding: 10px 12px;
   display: block;
-  margin-bottom: 24px;
-  color: rgba(0, 0, 0, 0.57);
 }
 
-
-input:focus, textarea:focus {
-  outline: none;
-  box-shadow: 0;
-}
-
-.form-btns {
+.nav-logo, .user-nav {
   display: flex;
-  flex-direction: row-reverse;
+  align-items: center;
+  height: 59px;
+}
+
+.nav-filler {
+  flex: 1;
 }

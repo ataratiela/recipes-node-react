@@ -85,7 +85,7 @@ class Login extends Component {
     return (
       userID !== null
         ? <Redirect to={'/recipes'} />
-        : <div className='container-login center-flex'>
+        : <div className='container-login'>
             <div className='login-card login-error'>
               <div className='error-container'>
                 {error}

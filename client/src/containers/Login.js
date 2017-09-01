@@ -10,8 +10,6 @@ import { loginAction } from '../actions/login';
 import userStore from '../stores/user';
 import Error from '../views/Error';
 
-import '../styles/Login.css';
-
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -87,21 +85,34 @@ class Login extends Component {
     return (
       userID !== null
         ? <Redirect to={'/recipes'} />
-        : <div>
-          {error}
-          <form className='content full-width' onSubmit={this.onFormSubmit}>
-            <label>
-              User:
-                <input type="text" name="user" value={user} onChange={this.onFormChange} />
-            </label>
-            <label>
-              Password:
-                <input type="password" name="pass" value={pass} onChange={this.onFormChange} />
-            </label>
-            <input type="submit" />
-            <Link to={'/register'}>Register now</Link>
-          </form>
-        </div>
+        : <div className='container-login'>
+            <div className='login-card login-error'>
+              <div className='error-container'>
+                {error}
+              </div>
+            </div>
+            <div className='login-card'>
+              <div className='login-header center-flex'>
+                Login
+              </div>
+              <div className='login-content'>
+                <form className='login-form' onSubmit={this.onFormSubmit}>
+                  <div className='input-row'>
+                    <input type="text" name="user" value={user} 
+                      placeholder='Username' onChange={this.onFormChange} />
+                  </div>
+                  <div className='input-row'>
+                    <input type="password" name="pass" value={pass} 
+                      placeholder='Password' onChange={this.onFormChange} />
+                  </div>
+                  <div className='input-row'>
+                    <input type="submit" value='Login' className='btn btn-fill btn-submit' />
+                  </div>
+                </form>
+              </div>
+              <Link className='register-now' to={'/register'}>Register now</Link>
+            </div>
+          </div>
     );
   }
 }

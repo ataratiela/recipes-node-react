@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/RecipeForm.css';
 
 function RecipeForm(props) {
   const {

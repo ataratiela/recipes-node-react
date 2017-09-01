@@ -5,7 +5,7 @@ function Error (props){
         return <li key={i}>{error}</li>
     });
     return(
-        <div>
+        <div className='error-message'>
             <h2>{props.name}</h2>
             <ul>{ errors }</ul>
         </div>

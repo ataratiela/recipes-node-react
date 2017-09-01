@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import {
-  Link
-} from 'react-router-dom';
 import Navbar from '../views/Navbar';
 
 import userStore from '../stores/user';
@@ -41,11 +38,11 @@ class App extends Component {
       <div>
         <Navbar 
           user={ this.state.user.name } 
-          loginButton={ <Link className='btn btn-fill' to={'/login'}>Login</Link> }
-          logoutButton={ <button className='btn btn-fill' onClick={ this.handleLogout }>Log Out</button> }
-          />
+          handleLogout={ this.handleLogout }/>
 
-        { this.props.children }
+        <div className='main-content'>
+          { this.props.children }
+        </div>
       </div>
     );
   }

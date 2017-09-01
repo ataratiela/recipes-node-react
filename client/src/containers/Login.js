@@ -85,21 +85,28 @@ class Login extends Component {
     return (
       userID !== null
         ? <Redirect to={'/recipes'} />
-        : <div>
-          {error}
-          <form className='content full-width' onSubmit={this.onFormSubmit}>
-            <label>
-              User:
-                <input type="text" name="user" value={user} onChange={this.onFormChange} />
-            </label>
-            <label>
-              Password:
-                <input type="password" name="pass" value={pass} onChange={this.onFormChange} />
-            </label>
-            <input type="submit" />
-            <Link to={'/register'}>Register now</Link>
-          </form>
-        </div>
+        : <div className='container-login center-flex'>
+            <div className='login-card'>
+              <div className='login-error'>
+                {error}
+              </div>
+              <div className='login-header center-flex'>
+                Login
+              </div>
+              <form className='login-form' onSubmit={this.onFormSubmit}>
+                <label>
+                  User:
+                    <input type="text" name="user" value={user} onChange={this.onFormChange} />
+                </label>
+                <label>
+                  Password:
+                    <input type="password" name="pass" value={pass} onChange={this.onFormChange} />
+                </label>
+                <input type="submit" />
+              </form>
+              <Link className='register-now' to={'/register'}>Register now</Link>
+            </div>
+          </div>
     );
   }
 }

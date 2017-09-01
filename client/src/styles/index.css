@@ -202,6 +202,7 @@ button:focus {
 .register-now {
   position: absolute;
   bottom: -70px;
+  margin-bottom: 35px;
 }
 
 /* Recipes Component */

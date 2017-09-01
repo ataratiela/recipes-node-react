@@ -21,6 +21,15 @@ function Navbar(props) {
           <Link className='btn btn-fill' to={'/register'}>Sign Up</Link>
         </li>
       </ul>
+
+  const actionNav = user
+    ? <ul>
+        <li>
+          <Link className='btn' to={'/recipes/new'}>Create Recipe</Link>
+        </li>
+      </ul> 
+    : <ul>
+      </ul>
       
   return (
     <div className='navbar'>
@@ -29,10 +38,13 @@ function Navbar(props) {
           <NavLink
             exact
             to="/recipes"
-            className='btn btn-nav'
+            className='btn'
             activeClassName="selected">
               FoodTouristic
             </NavLink>
+        </div>
+        <div className='action-nav'>
+          { actionNav }
         </div>
         <div className='nav-filler' />
         <div className='user-nav'>

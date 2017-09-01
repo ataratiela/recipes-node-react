@@ -130,6 +130,10 @@ button:focus {
   height: 59px;
 }
 
+.nav-logo a {
+  padding: 10px 32px 10px 12px;
+}
+
 .nav-filler {
   flex: 1;
 }

@@ -38,15 +38,6 @@ input:-webkit-autofill {
   margin: auto;
 }
 
-.container-login {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: #f5f5f5;
-}
-
 .center-flex {
   display: flex;
   justify-content: center;
@@ -80,6 +71,10 @@ button:focus {
   text-decoration: none;
   cursor: pointer;
   letter-spacing: 0.8px;
+}
+
+.btn:focus {
+  outline: none;
 }
 
 .btn-fill {
@@ -161,19 +156,29 @@ button:focus {
 
 /* Login/Register Component */
 
+.container-login {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
 .login-card {
   position: relative;
   max-width: 450px;
+  width: 100%;
   border-radius: 2px;
   background-color: #FFF;
   box-shadow: 0 2px 3px rgba(10,10,10,0.1), 0 0 0 1px rgba(10,10,10,0.1);
 }
 
 .login-error {
-  position: absolute;
-  bottom: 100%;
-  width: 100%;
-  padding-bottom: 50px;
+  margin-bottom: 50px;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .login-header {
@@ -195,8 +200,7 @@ button:focus {
 
 .register-now {
   position: absolute;
-  left: 8px;
-  bottom: -30px;
+  bottom: -36px;
 }
 
 /* Recipes Component */
@@ -328,14 +332,14 @@ input[type='text'], input[type='password'] {
   }
 }
 
-@media (max-width: 886px) {
+@media (max-width: 992px) {
   .thumbnail {
     width: 96%;
     padding: 0px 2% 4% 2%;
   }
 }
 
-@media (max-width: 621px) {
+@media (max-width: 768px) {
 
   /* Thumbnail Component */
 
@@ -364,6 +368,48 @@ input[type='text'], input[type='password'] {
     box-shadow: none;
   }
 
+  .error-container {
+    padding: 0 25px;
+  }
+
+  .login-header {
+    padding: 0;
+    font-size: 28px;
+  }
+
+  .login-header {
+    border: none;
+  }
+
+  .login-content {
+    width: 100%;
+  }
+
+  .login-form {
+    padding: 25px;
+  }
+
+  .register-now {
+    left: 25px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  /* Login/Register Component */
+
+  .container-login {
+    margin: 0 35px;
+    background-color: #FFF;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    box-shadow: none;
+  }
+
   .login-header {
     border: none;
   }
@@ -373,6 +419,5 @@ input[type='text'], input[type='password'] {
   }
 
   .register-now {
-    left: 50px;
   }
 }

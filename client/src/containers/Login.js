@@ -86,10 +86,12 @@ class Login extends Component {
       userID !== null
         ? <Redirect to={'/recipes'} />
         : <div className='container-login center-flex'>
-            <div className='login-card'>
-              <div className='login-error'>
+            <div className='login-card login-error'>
+              <div className='error-container'>
                 {error}
               </div>
+            </div>
+            <div className='login-card'>
               <div className='login-header center-flex'>
                 Login
               </div>

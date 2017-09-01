@@ -93,17 +93,21 @@ class Login extends Component {
               <div className='login-header center-flex'>
                 Login
               </div>
-              <form className='login-form' onSubmit={this.onFormSubmit}>
-                <label>
-                  User:
-                    <input type="text" name="user" value={user} onChange={this.onFormChange} />
-                </label>
-                <label>
-                  Password:
-                    <input type="password" name="pass" value={pass} onChange={this.onFormChange} />
-                </label>
-                <input type="submit" />
-              </form>
+              <div className='login-content'>
+                <form className='login-form' onSubmit={this.onFormSubmit}>
+                  <div className='input-row'>
+                    <input type="text" name="user" value={user} 
+                      placeholder='Username' onChange={this.onFormChange} />
+                  </div>
+                  <div className='input-row'>
+                    <input type="password" name="pass" value={pass} 
+                      placeholder='Password' onChange={this.onFormChange} />
+                  </div>
+                  <div className='input-row'>
+                    <input type="submit" value='Login' className='btn btn-fill btn-submit' />
+                  </div>
+                </form>
+              </div>
               <Link className='register-now' to={'/register'}>Register now</Link>
             </div>
           </div>

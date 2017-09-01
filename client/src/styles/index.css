@@ -26,6 +26,10 @@ a:link, a:visited {
     color: inherit;
 }
 
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
 /* Generic styles */
 
 .container {
@@ -49,13 +53,12 @@ a:link, a:visited {
   align-items: center;
 }
 
-button{
+button, input {
   margin: 0;
   padding: 0;
   border: 0;
   font-family: inherit;
   font-size: inherit;
-  cursor: pointer;
 }
 
 button::-moz-focus-inner{
@@ -69,18 +72,24 @@ button:focus {
 
 .btn {
   display: block;
+  color: #444;
   padding: 10px 12px;
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
   text-decoration: none;
-  color: #444;
+  cursor: pointer;
   letter-spacing: 0.8px;
 }
 
 .btn-fill {
   border-radius: 2px;
   background-color: #FF9800;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px;
 }
 
 /* Site header styles */
@@ -174,10 +183,13 @@ button:focus {
   border-bottom: 1px solid #CCC;
 }
 
+.login-content {
+  width: 450px;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
-  width: 350px;
   padding: 50px;
 }
 
@@ -263,6 +275,29 @@ button:focus {
   padding-top: 4px;
 }
 
+/* Form styling */
+
+.input-row {
+  margin-bottom: 24px;
+}
+
+.input-row:last-child {
+  margin: 0;
+}
+
+input[type='text'], input[type='password'] {
+  color: #616161;
+  outline: none;
+  font-size: 18px;
+  padding-left: 14px;
+  width: 100%;
+  min-height: 42px;
+  box-sizing: border-box;
+  border-radius: 1px;
+  border: 1px solid #CCC;
+  box-shadow: inset 0 1px 2px rgba(10,10,10,0.1);
+}
+
 /* RESPONSIVEEEEEEEEEEEEEEEEEEEEEE */
 
 /* Generic styles */
@@ -301,12 +336,43 @@ button:focus {
 }
 
 @media (max-width: 621px) {
+
+  /* Thumbnail Component */
+
   .thumbnail {
     width: 100%;
     padding: 0px 0px 4% 0px;
   }
 
+  /* Main content styles */
+
   .column-sidebar {
     display: none;
+  }
+
+  /* Login/Register Component */
+
+  .container-login {
+    margin: 0 35px;
+    background-color: #FFF;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    box-shadow: none;
+  }
+
+  .login-header {
+    border: none;
+  }
+
+  .login-content {
+    width: 100%;
+  }
+
+  .register-now {
+    left: 50px;
   }
 }

@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  color: #444;
 }
 
 a, abbr, acronym, address, applet, article,
@@ -38,6 +39,35 @@ a:link, a:visited {
   align-items: center;
 }
 
+button{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+button::-moz-focus-inner{
+  padding : 0;
+  border  : 0;
+}
+
+button:focus {
+  outline: none;
+}
+
+.btn {
+  display: block;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #444;
+  letter-spacing: 0.8px;
+}
+
 .btn-fill {
   border-radius: 2px;
   background-color: #FF9800;
@@ -56,7 +86,7 @@ a:link, a:visited {
   border-bottom: 1px solid #CCC;
 }
 
-.navbar a, .navbar span {
+.navbar span {
     font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
@@ -168,9 +198,20 @@ a:link, a:visited {
 
 /* Generic styles */
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
   .container {
     width: 100%;
+  }
+
+  .navbar .container {
+    width: auto;
+    padding: 0px 25px;
+  }
+
+  .column-main {
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
+    padding: 25px;
   }
 
   .thumbnail {
@@ -198,9 +239,5 @@ a:link, a:visited {
 
   .column-sidebar {
     display: none;
-  }
-
-  .column-main {
-    padding: 35px 2% 4% 2%;
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 function Navbar(props) {
-  const { user } = props;
+  const { user, handleLogout } = props;
 
   const userNav = user
     ? <ul>
@@ -10,12 +10,12 @@ function Navbar(props) {
           <span>{ user }</span>
         </li>
         <li>
-          <Link className='btn btn-fill' to={'/login'}>Logout</Link>
+          <button className='btn btn-fill' onClick={ handleLogout }>Logout</button>
         </li>
       </ul> 
     : <ul>
         <li>
-          <Link to={'/login'}>Login</Link>
+          <Link className='btn' to={'/login'}>Login</Link>
         </li>
         <li>
           <Link className='btn btn-fill' to={'/register'}>Sign Up</Link>

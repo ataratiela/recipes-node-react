@@ -36,7 +36,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar user={ this.state.user.name } />
+        <Navbar 
+          user={ this.state.user.name } 
+          handleLogout={ this.handleLogout }/>
 
         <div className='main-content'>
           { this.props.children }

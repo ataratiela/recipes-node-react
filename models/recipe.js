@@ -40,6 +40,13 @@ exports.findAll = (done) => {
 	});
 };
 
+exports.findById = (recipeID, done) => {
+	dbPool.query('SELECT * FROM Recipes WHERE recipeID = ?', [recipeID], (err, res, fields) => {
+		if (err) throw err;
+		done(err, res[0]);
+	});
+}
+
 exports.save = (recipe, done) => {
 	let { name, image, steps } = recipe;
 

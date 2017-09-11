@@ -183,17 +183,19 @@ class NewRecipe extends Component {
     return (
       this.state.createdRecipe
         ? <Redirect to={ '/recipes/' + this.state.createdRecipe } />
-        : <div className='content content-form full-width' >
-            <RecipeForm
-              recipe={ this.state.recipe }
-              categories={ this.state.categories }
-              submit={ this.handleSubmit }
-              reset={ this.handleReset }
-              handleInputChange={ this.handleInputChange }
-              handleImageChange={ this.handleImageChange } 
-              handleStepChange={ this.handleStateChange } 
-              handleAddState={ this.handleAddState } 
-              handleRemoveState={ this.handleRemoveState } />
+        : <div className='container' >
+            <div className='container--new-recipe' >
+              <RecipeForm
+                recipe={ this.state.recipe }
+                categories={ this.state.categories }
+                submit={ this.handleSubmit }
+                reset={ this.handleReset }
+                handleInputChange={ this.handleInputChange }
+                handleImageChange={ this.handleImageChange } 
+                handleStepChange={ this.handleStateChange } 
+                handleAddState={ this.handleAddState } 
+                handleRemoveState={ this.handleRemoveState } />
+            </div >
           </div >
     );
   }

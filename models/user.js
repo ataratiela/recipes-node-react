@@ -25,6 +25,26 @@ exports.findAll = (done) => {
 	});
 };
 
+exports.findLikes = (userID, done) => {
+	dbPool.query('SELECT * FROM recipes INNER JOIN likes on likes.recipeID = recipes.recipeID WHERE likes.userID = ?', [userID], (err, res, fields) => {
+		if(err) throw err;
+		done(err, res);		
+	});
+};
+
+exports.saveLikes = (userID, recipeID, done) => {
+	dbPool.query('INSERT INTO likes SET ?', [{ userID: userID, recipeID: recipeID }], (err, res) => {
+		if(err) throw err;
+		done(err, res);
+	});
+};
+
+exports.deleteLike = (userID, recipeID, done) => {
+	dbPool.query('DELETE FROM likes WHERE userID = ? AND recipeID = ?', [userID, recipeID], (err, res) => {
+		if(err) throw err;
+		done(err, res);
+	});
+};
 exports.findById = (userID, done) => {
 	dbPool.query('SELECT * FROM Users WHERE UserID = ?', [userID], (err, res, fields) => {
 		if (err) throw err;

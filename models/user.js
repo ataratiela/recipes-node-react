@@ -33,18 +33,83 @@ exports.findLikes = (userID, done) => {
 };
 
 exports.saveLikes = (userID, recipeID, done) => {
-	dbPool.query('INSERT INTO likes SET ?', [{ userID: userID, recipeID: recipeID }], (err, res) => {
-		if(err) throw err;
-		done(err, res);
+	dbPool.getConnection((error, connection) => {
+		connection.beginTransaction(err => {
+			if(error) {
+				connection.release();
+				throw error;
+			}
+			connection.query('SELECT * FROM likes WHERE userID = ? AND recipeID = ?', [userID, recipeID], (err, res) => {
+				const like = res[0];
+				if(error) {
+					return connection.rollback(function () {
+						throw error;
+					});
+				}
+				if(like) {
+					return connection.commit((error) => {
+						done({ message: 'Like already exists' });
+					});
+				}
+				connection.query('INSERT INTO likes SET ?', [{ userID: userID, recipeID: recipeID }], (err, res) => {
+					if(err) {
+						return connection.rollback(() => {
+							throw err;
+						})
+					}
+					connection.commit((error) => {
+						if(error) {
+							return connection.rollback(() => {
+								throw error;
+							})
+						}
+						done(err, res);
+					});	
+				});
+			});
+		});
 	});
 };
 
 exports.deleteLike = (userID, recipeID, done) => {
-	dbPool.query('DELETE FROM likes WHERE userID = ? AND recipeID = ?', [userID, recipeID], (err, res) => {
-		if(err) throw err;
-		done(err, res);
+	dbPool.getConnection((error, connection) => {
+		connection.beginTransaction(err => {
+			if(error) {
+				connection.release();
+				throw error;
+			}
+			connection.query('SELECT * FROM likes WHERE userID = ? AND recipeID = ?', [userID, recipeID], (err, res) => {
+				const like = res[0];
+				if (error) {
+					return connection.rollback(function () {
+						throw error;
+					});
+				}
+				if (!like) {
+					return connection.commit(function (error) {
+						done({ message: 'Like not found' });
+					}); 
+				}
+				connection.query('DELETE FROM likes WHERE userID = ? AND recipeID = ?', [userID, recipeID], (err, res) => {
+					if (err) {
+						return connection.rollback(function () {
+							throw err;
+						});
+					}
+					connection.commit((error) => {
+						if(error) {
+							return connection.rollback(function () {
+								throw error;
+							})
+						}
+						done(err, res);
+					})
+				})
+			});
+		});
 	});
 };
+
 exports.findById = (userID, done) => {
 	dbPool.query('SELECT * FROM Users WHERE UserID = ?', [userID], (err, res, fields) => {
 		if (err) throw err;

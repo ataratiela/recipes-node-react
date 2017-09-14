@@ -8,6 +8,18 @@ router.get('/', (req, res) => {
 	});
 });
 
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+
+    Recipe.findById(id, (err, results) => {
+        if (err) {
+            res.status(500).end();
+        } else {
+            res.status(200).json(results);
+        }
+    });
+});
+
 router.post('/', (req, res) => {
 	var recipe = Recipe.new(req.body);
 

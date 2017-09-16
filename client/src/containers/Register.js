@@ -57,7 +57,7 @@ class Register extends Component {
                       placeholder='Username' onChange={this.onFormChange} />
                   </div>
                   <div className='input-row'>
-                    <input type="text" name="user" value={name} 
+                    <input type="text" name="name" value={name} 
                       placeholder='First Name' onChange={this.onFormChange} />
                   </div>
                   <div className='input-row'>

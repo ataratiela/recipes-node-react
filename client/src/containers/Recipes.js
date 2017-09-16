@@ -11,6 +11,9 @@ class Recipes extends Component {
     this.state = {
       recipes: []
     }
+
+    this.handleOwnRecipes = this.handleOwnRecipes.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -24,11 +27,40 @@ class Recipes extends Component {
       });
   }
 
+  onInputChange(event) {
+    const target = event.target;
+    this.setState({
+      [target.name]: target.value
+    })
+  }
+
+  handleOwnRecipes(event) {
+    const url = 'userID/recipes';
+
+    axios.get(url)
+      .then(({ data }) => {
+        this.setState({
+          recipes: data
+        })
+      });
+  }
+
+  handleAllRecipes(event) {
+    const url = '/recipes';
+
+    axios.get(url)
+      .then(({ data }) => {
+        this.setState({
+          recipes: data
+        })
+      });
+  }
+
   render() {
     const { recipes } = this.state;
     const recipeList = recipes.map((r) => {
-      return <Thumbnail 
-        key={ r.recipeID } 
+      return <Thumbnail
+        key={r.recipeID}
         { ...r }
       />
     });
@@ -41,7 +73,7 @@ class Recipes extends Component {
           </div>
           <div className="column-main">
             <div className='recipe-list'>
-              { recipeList }
+              {recipeList}
             </div>
           </div>
         </div>

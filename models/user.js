@@ -123,17 +123,3 @@ exports.save = (userID, name, pass, done) => {
 		done(err, res);
 	});
 };
-
-exports.update = (userID, name, pass, done) => {
-	dbPool.query('UPDATE Users SET ? WHERE UserID = ?', [userID, name, pass], (err, res, fields) => {
-		if (err) throw err;
-		done(err, res);
-	});
-};
-
-exports.delete = (userID, done) => {
-	dbPool.query('DELETE FROM Users WHERE UserID = ?', [userID], (err, res, fields) => {
-		if (err) throw err;
-		done(err, res);
-	});
-};

@@ -50,7 +50,7 @@ exports.findById = (recipeID, done) => {
 exports.findByUser = (userID, done) => {
 	dbPool.query('SELECT * FROM Recipes WHERE userID = ?', [userID], (err, res, fields) => {
 		if (err) throw err;
-		done(err, res[0]);
+		done(err, res);
 	});
 }
 

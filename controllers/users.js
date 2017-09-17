@@ -38,7 +38,6 @@ router.get('/:user_id/recipes', (req, res) => {
 	const { userID } = req.user;
     recipe.findByUser(userID, (error, recipes) => {
       res.json(error || recipes);
-      console.log(recipes);
     });
 });
 

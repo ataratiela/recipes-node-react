@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Thumbnail from '../views/Thumbnail';
 import RecipeFilterList from '../views/RecipeFilterList';
+import userStore from '../stores/user';
 
 import axios from 'axios';
 
@@ -9,15 +10,21 @@ class Recipes extends Component {
     super(props);
 
     this.state = {
-      recipes: []
+      recipes: [],
+      userID: '',
+      token: '',
+      checked: 'allRecipes'
     }
 
+    this.userStoreDidChange = this.userStoreDidChange.bind(this);
     this.handleOwnRecipes = this.handleOwnRecipes.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
+    this.handleAllRecipes = this.handleAllRecipes.bind(this);
   }
 
+  
+
   componentDidMount() {
-    const url = '/recipes';
+    const url = '/api/recipes';
 
     axios.get(url)
       .then(({ data }) => {
@@ -27,31 +34,51 @@ class Recipes extends Component {
       });
   }
 
-  onInputChange(event) {
-    const target = event.target;
-    this.setState({
-      [target.name]: target.value
-    })
+  componentWillMount() {
+    userStore.subscribe(this.userStoreDidChange);
+    this.userStoreDidChange();
+  }
+
+  componentWillUnmount() {
+    userStore.unsubscribe(this.userStoreDidChange);
+  }
+
+  userStoreDidChange() {
+    const { id, token } = userStore.getState();
+    this.setState({ userID: id, token: token });
   }
 
   handleOwnRecipes(event) {
-    const url = 'userID/recipes';
+    const { userID, token } = this.state;
+    const url = '/api/users/' + userID + '/recipes';
 
-    axios.get(url)
-      .then(({ data }) => {
-        this.setState({
-          recipes: data
-        })
-      });
+    axios.get(url, {
+      headers: { 'x-access-token': token },
+      validateStatus: function (status) {
+        return status >= 200 && status < 500;
+      }
+    }).then(({ data, status }) => {
+      if (status >= 200 && status < 300) {
+        this.setState({ 
+          recipes: data , checked: 'ownRecipes'
+        });
+      }
+      else if (status >= 400 && status < 500) {
+        //TODO: Handle client side error
+      }
+      else {
+        console.error('Unexpected status received');
+      }
+    });
   }
 
   handleAllRecipes(event) {
-    const url = '/recipes';
+    const url = '/api/recipes';
 
     axios.get(url)
       .then(({ data }) => {
         this.setState({
-          recipes: data
+          recipes: data, checked: 'allRecipes'
         })
       });
   }
@@ -69,7 +96,12 @@ class Recipes extends Component {
       <div className='container'>
         <div className='columns'>
           <div className='column-sidebar'>
-            <RecipeFilterList />
+            <RecipeFilterList 
+            userID={ this.state.userID }
+            checked={ this.state.checked }
+            handleOwnRecipes={ this.handleOwnRecipes }
+            handleAllRecipes={ this.handleAllRecipes }
+             />
           </div>
           <div className="column-main">
             <div className='recipe-list'>

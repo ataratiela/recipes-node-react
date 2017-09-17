@@ -3,25 +3,25 @@ import React from 'react';
 function RecipeFilterList(props) {
   return (
     <div>
-      Refine by
-
-      <form onSubmit={props.onFormSubmit}>
-        <label>
-          <input type="radio" name="ownRecipes"
-            value='ownRecipes'
-            checked={props.onInputChange}
-            onChange={props.handleOwnRecipes} />
-          Own recipes
-        </label>
-        <br />
-        <label>
-          <input type="radio" name="ownRecipes"
-            value='ownRecipes'
-            checked={props.onInputChange}
-            onChange={props.handleAllRecipes} />
-          All recipes
-        </label>
-      </form>
+      Filter by
+      <br />
+      <label>
+        <input type="radio" name="filterRecipes"
+          value='ownRecipes'
+          id='ownRecipes'
+          checked={props.checked === 'ownRecipes'}
+          onChange={props.handleOwnRecipes} />
+        Own recipes
+      </label>
+      <br />
+      <label>
+        <input type="radio" name="filterRecipes"
+        checked={props.checked === 'allRecipes'}
+          value='allRecipes'
+          id='allRecipes'
+          onChange={props.handleAllRecipes} />
+        All recipes
+      </label>
     </div>
   );
 }

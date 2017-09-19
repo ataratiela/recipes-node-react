@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Thumbnail from '../views/Thumbnail';
-import RecipeFilterList from '../views/RecipeFilterList';
+import OwnRecipeFilterList from '../views/OwnRecipeFilterList';
 import userStore from '../stores/user';
 
 import axios from 'axios';
@@ -13,15 +13,13 @@ class Recipes extends Component {
       recipes: [],
       userID: '',
       token: '',
-      checked: 'allRecipes'
+      visibilityFilter: 'allRecipes'
     }
 
     this.userStoreDidChange = this.userStoreDidChange.bind(this);
     this.handleOwnRecipes = this.handleOwnRecipes.bind(this);
     this.handleAllRecipes = this.handleAllRecipes.bind(this);
   }
-
-  
 
   componentDidMount() {
     const url = '/api/recipes';
@@ -59,8 +57,8 @@ class Recipes extends Component {
       }
     }).then(({ data, status }) => {
       if (status >= 200 && status < 300) {
-        this.setState({ 
-          recipes: data , checked: 'ownRecipes'
+        this.setState({
+          recipes: data, visibilityFilter: 'ownRecipes'
         });
       }
       else if (status >= 400 && status < 500) {
@@ -78,7 +76,7 @@ class Recipes extends Component {
     axios.get(url)
       .then(({ data }) => {
         this.setState({
-          recipes: data, checked: 'allRecipes'
+          recipes: data, visibilityFilter: 'allRecipes'
         })
       });
   }
@@ -92,16 +90,20 @@ class Recipes extends Component {
       />
     });
 
+    const ownRecipeFilter = this.state.userID
+      ? <OwnRecipeFilterList
+        userID={this.state.userID}
+        visibilityFilter={this.state.visibilityFilter}
+        handleOwnRecipes={this.handleOwnRecipes}
+        handleAllRecipes={this.handleAllRecipes}
+      />
+      : null;
+
     return (
       <div className='container'>
         <div className='columns'>
           <div className='column-sidebar'>
-            <RecipeFilterList 
-            userID={ this.state.userID }
-            checked={ this.state.checked }
-            handleOwnRecipes={ this.handleOwnRecipes }
-            handleAllRecipes={ this.handleAllRecipes }
-             />
+            {ownRecipeFilter}
           </div>
           <div className="column-main">
             <div className='recipe-list'>

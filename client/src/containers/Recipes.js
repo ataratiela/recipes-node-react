@@ -9,8 +9,14 @@ class Recipes extends Component {
     super(props);
 
     this.state = {
-      recipes: []
+      recipes: [],
+      filters: {
+        difficulty: 4,
+        time: 10000,
+        category: 10000
+      }
     }
+    this.setFilterList = this.setFilterList.bind(this);
   }
 
   componentDidMount() {
@@ -24,9 +30,29 @@ class Recipes extends Component {
       });
   }
 
+  setFilterList(type, value) {
+    let filters = Object.assign({}, this.state.filters);
+    filters[type] = value;
+    this.setState({
+      filters: filters
+    });
+  }
+
   render() {
     const { recipes } = this.state;
-    const recipeList = recipes.map((r) => {
+    const { filters } = this.state;
+
+    let recipeList = recipes.filter((r) => {
+      return filters.difficulty === 4 || r.difficulty === filters.difficulty;
+    });
+    recipeList = recipeList.filter((r) => {      
+      return r.prepTime < filters.time;
+    });
+    recipeList = recipeList.filter((r) => {
+      return filters.category === 10000 || r.categoryID === filters.category;
+    });
+
+    recipeList = recipeList.map((r) => {
       return <Thumbnail 
         key={ r.recipeID } 
         { ...r }
@@ -37,7 +63,7 @@ class Recipes extends Component {
       <div className='container'>
         <div className='columns'>
           <div className='column-sidebar'>
-            <RecipeFilterList />
+            <RecipeFilterList setFilterList={ this.setFilterList }  />
           </div>
           <div className="column-main">
             <div className='recipe-list'>

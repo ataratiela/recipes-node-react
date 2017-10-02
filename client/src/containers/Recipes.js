@@ -88,6 +88,7 @@ class Recipes extends Component {
         })
       });
   }
+
   setFilterList(type, value) {
     let filters = Object.assign({}, this.state.filters);
     filters[type] = value;
@@ -120,6 +121,7 @@ class Recipes extends Component {
     const ownRecipeFilter = this.state.userID
       ? <OwnRecipeFilterList
         userID={this.state.userID}
+        visibilityFilter={this.state.visibilityFilter}
         handleOwnRecipes={this.handleOwnRecipes}
         handleAllRecipes={this.handleAllRecipes}
       />

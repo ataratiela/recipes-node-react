@@ -6,7 +6,8 @@ function OwnRecipeFilterList(props) {
       Filter by
       <br />
       <label>
-        <input type="radio" name="filterRecipes"
+        <input type="radio"
+          name="filterRecipes"
           value='ownRecipes'
           id='ownRecipes'
           checked={props.visibilityFilter === 'ownRecipes'}
@@ -15,7 +16,8 @@ function OwnRecipeFilterList(props) {
       </label>
       <br />
       <label>
-        <input type="radio" name="filterRecipes"
+        <input type="radio"
+          name="filterRecipes"
           value='allRecipes'
           id='allRecipes'
           checked={props.visibilityFilter === 'allRecipes'}

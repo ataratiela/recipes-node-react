@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Thumbnail from '../views/Thumbnail';
 import OwnRecipeFilterList from '../views/OwnRecipeFilterList';
+import RecipeFilterList from '../views/RecipeFilterList';
 import userStore from '../stores/user';
 
 import axios from 'axios';
@@ -13,12 +14,19 @@ class Recipes extends Component {
       recipes: [],
       userID: '',
       token: '',
-      visibilityFilter: 'allRecipes'
+      visibilityFilter: 'allRecipes',
+      filters: {
+        ownRecipeFilterList: 2,
+        difficulty: 4,
+        time: 10000,
+        category: 10000        
+      }
     }
 
     this.userStoreDidChange = this.userStoreDidChange.bind(this);
     this.handleOwnRecipes = this.handleOwnRecipes.bind(this);
     this.handleAllRecipes = this.handleAllRecipes.bind(this);
+    this.setFilterList = this.setFilterList.bind(this);
   }
 
   componentDidMount() {
@@ -80,12 +88,31 @@ class Recipes extends Component {
         })
       });
   }
+  setFilterList(type, value) {
+    let filters = Object.assign({}, this.state.filters);
+    filters[type] = value;
+    this.setState({
+      filters: filters
+    });
+  }
 
   render() {
     const { recipes } = this.state;
-    const recipeList = recipes.map((r) => {
-      return <Thumbnail
-        key={r.recipeID}
+    const { filters } = this.state;
+
+    let recipeList = recipes.filter((r) => {
+      return filters.difficulty === 4 || r.difficulty === filters.difficulty;
+    });
+    recipeList = recipeList.filter((r) => {      
+      return r.prepTime < filters.time;
+    });
+    recipeList = recipeList.filter((r) => {
+      return filters.category === 10000 || r.categoryID === filters.category;
+    });
+
+    recipeList = recipeList.map((r) => {
+      return <Thumbnail 
+        key={ r.recipeID } 
         { ...r }
       />
     });
@@ -93,7 +120,6 @@ class Recipes extends Component {
     const ownRecipeFilter = this.state.userID
       ? <OwnRecipeFilterList
         userID={this.state.userID}
-        visibilityFilter={this.state.visibilityFilter}
         handleOwnRecipes={this.handleOwnRecipes}
         handleAllRecipes={this.handleAllRecipes}
       />
@@ -104,6 +130,7 @@ class Recipes extends Component {
         <div className='columns'>
           <div className='column-sidebar'>
             {ownRecipeFilter}
+            <RecipeFilterList setFilterList={ this.setFilterList }  />
           </div>
           <div className="column-main">
             <div className='recipe-list'>
